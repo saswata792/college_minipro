@@ -1,109 +1,189 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#include<EEPROM.h>
+#include "webpaged.h";
+#include "sewebpaged.h";
+#include "register.h";
+#include "router.h";
+#include "profile.h";
+#include <Arduino.h>
+String rusername;
+String rpassword;
+String uusername;
+String upassword;
+extern "C" {
+#include <user_interface.h>
+}
 
-/* Put your SSID & Password */
-const char* ssid = "NodeMCU";  // Enter SSID here
-const char* password = "12345678";  //Enter Password here
+String ssid = "NodeMCU";  // Enter SSID here
+String password = "12345678";  //Enter Password here
 
-/* Put IP Address details */
+
 IPAddress local_ip(192,168,1,1);
 IPAddress gateway(192,168,1,1);
 IPAddress subnet(255,255,255,0);
 
+
 ESP8266WebServer server(80);
 
-uint8_t LED1pin = 15;
-bool LED1status = LOW;
 
-uint8_t LED2pin = 14;
-bool LED2status = LOW;
 
 void setup() {
-  Serial.begin(115200);
-  pinMode(LED1pin, OUTPUT);
-  pinMode(LED2pin, OUTPUT);
-
+  Serial.begin(74880);
+  
+  rst_info *resetInfo;
+  resetInfo=ESP.getResetInfoPtr();
   WiFi.softAP(ssid, password);
   WiFi.softAPConfig(local_ip, gateway, subnet);
+  server.on("/",webpage);
+  server.on("/router",readData);
   delay(100);
-  
-  server.on("/", handle_OnConnect);
-  server.on("/led1on", handle_led1on);
-  server.on("/led1off", handle_led1off);
-  server.on("/led2on", handle_led2on);
-  server.on("/led2off", handle_led2off);
-  server.onNotFound(handle_NotFound);
-  
   server.begin();
-  Serial.println("HTTP server started");
+  Serial.println(resetInfo ->reason);
+  if(resetInfo->reason==6)
+  {
+    server.on("/",change);
+    server.on("/changepro",readpro);
+    server.on("/changerout",readrout);
+    //server.on("/router",readUserData);
+    server.on("/profileup",successfulprofile);
+    server.on("/routerup",successfulrouter);
+  }
+  
+  
+}
+bool successfulrouter()
+{ 
+  int j=0,k=0,r=0,s=100;
+  EEPROM.begin(512);
+  Serial.print("SSID: ");
+  rusername=server.arg("rtusername");
+  Serial.println(server.arg("rtusername"));
+//  while(j!=rusername.length())
+//  {
+//    EEPROM.write(k,rusername[j]);
+//    j++;
+//    k++;
+//  }  
+  Serial.print("Password:");
+  rpassword=server.arg("rtpassword");
+  Serial.println(server.arg("rtpassword"));
+//  while(r!=rpassword.length())
+//  {
+//    EEPROM.write(s,rpassword[r]);
+//    r++;
+//    s++;
+//  }  
+  server.send(200,"text/html",registered);
+//  EEPROM.end();
+  return true;
+}
+bool successfulprofile()
+{
+  int j=0,k=300,r=0,s=400;
+
+  EEPROM.begin(512);
+  Serial.print("Username: ");
+  uusername=server.arg("username");
+  Serial.println(server.arg("username"));
+//  while(j!=uusername.length())
+//  {
+//    EEPROM.write(k,uusername[j]);
+//    j++;
+//    k++;
+//  }  
+  Serial.print("Password:");
+  upassword=server.arg("password");
+  Serial.println(server.arg("password"));
+//  while(r!=upassword.length())
+//  {
+//    EEPROM.write(s,upassword[r]);
+//    r++;
+//    s++;
+//  }  
+  
+//  EEPROM.end();
+  return true;
+  
+}
+void readpro()
+{
+   server.send(200,"text/html",profile);
+}
+void readrout()
+{
+   server.send(200,"text/html",router);
 }
 void loop() {
   server.handleClient();
-  if(LED1status)
-  {digitalWrite(LED1pin, HIGH);}
-  else
-  {digitalWrite(LED1pin, LOW);}
   
-  if(LED2status)
-  {digitalWrite(LED2pin, HIGH);}
-  else
-  {digitalWrite(LED2pin, LOW);}
 }
-
-void handle_OnConnect() {
-  LED1status = LOW;
-  LED2status = LOW;
-  Serial.println("GPIO7 Status: OFF | GPIO6 Status: OFF");
-  server.send(200, "text/html", SendHTML(LED1status,LED2status)); 
+void change()
+{
+  server.send(200,"text/html",changed);
 }
-
-void handle_led1on() {
-  LED1status = HIGH;
-  Serial.println("GPIO7 Status: ON");
-  server.send(200, "text/html", SendHTML(true,LED2status)); 
+void webpage(){
+  server.send(200,"text/html",webpaged);
 }
-
-void handle_led1off() {
-  LED1status = LOW;
-  Serial.println("GPIO7 Status: OFF");
-  server.send(200, "text/html", SendHTML(false,LED2status)); 
-}
-
-void handle_led2on() {
-  LED2status = HIGH;
-  Serial.println("GPIO6 Status: ON");
-  server.send(200, "text/html", SendHTML(LED1status,true)); 
-}
-
-void handle_led2off() {
-  LED2status = LOW;
-  Serial.println("GPIO6 Status: OFF");
-  server.send(200, "text/html", SendHTML(LED1status,false)); 
-}
-
-void handle_NotFound(){
-  server.send(404, "text/plain", "Not found");
-}
-
-String SendHTML(uint8_t led1stat,uint8_t led2stat){
-  String ptr = "<!DOCTYPE html> <html>\n";
-  ptr+="<body>";
-  ptr +="<h1>Router Signup</h1>\n";
-  ptr +="<form>";
-  ptr +="<label for='rtusername'>RouterUsername</label>";
-  ptr +="<input id='rtusername'></input>";
-  ptr +="<label for='rtpassword'>RouterPassword</label>";
-  ptr +="<input id='rtpassword'></input>";
-  ptr +="</form>";
-  ptr +="<form>";
-  ptr +="<label for='username'>Username</label>";
-  ptr +="<input id='username'></input>";
-  ptr +="<label for='password'>Password</label>";
-  ptr +="<input id='password'></input>";
-  ptr +="</form>";
+//bool readUserData()
+//{
+//   if (server.args() == 0)
+//    return false;  // we could do in the caller an error handling on that
+//   Serial.print("Username: ");
+//   Serial.println(server.arg("username"));
+//   Serial.print("Password:");
+//   Serial.println(server.arg("password"));
+//   server.send(200,"text/html",registered);
+//}
+bool readData()
+{
+  int j=0,k=0,r=0,s=100;
+  EEPROM.begin(512);
+  if (server.args() == 0)
+    return false;  // we could do in the caller an error handling on that
+  Serial.print("SSID: ");
+  rusername=server.arg("rtusername");
+  Serial.println(server.arg("rtusername"));
+  while(j!=rusername.length())
+  {
+    EEPROM.write(k,rusername[j]);
+    j++;
+    k++;
+  }
+    
+  Serial.print("Password:");
+  rpassword=server.arg("rtpassword");
+  Serial.println(server.arg("rtpassword"));
+  while(r!=rpassword.length())
+  {
+    EEPROM.write(s,rpassword[r]);
+    r++;
+    s++;
+  }  
+  j=0;
+  k=200;
+  Serial.print("Username: ");
+  uusername=server.arg("username");
+  Serial.println(server.arg("username"));
+  while(j!=uusername.length())
+  {
+    EEPROM.write(k,uusername[j]);
+    j++;
+    k++;
+  }
+  r=0;
+  s=300;  
+  Serial.print("Password:");
+  upassword=server.arg("password");
+  Serial.println(server.arg("password"));
+  while(r!=upassword.length())
+  {
+    EEPROM.write(s,upassword[r]);
+    r++;
+    s++;
+  }  
   
-   
-  ptr +="</body>\n";
-  ptr +="</html>\n";
-  return ptr;
+  server.send(200,"text/html",registered);
+  return true;
+  EEPROM.end();
 }
