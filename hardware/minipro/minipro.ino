@@ -14,11 +14,21 @@ String upassword;
 extern "C" {
 #include <user_interface.h>
 }
-
+typedef struct
+{
+  String rusername;
+  String rpassword;
+}route;
+typedef struct
+{
+  String uusername;
+  String upassword;
+}user;
 String ssid = "NodeMCU";  // Enter SSID here
 String password = "12345678";  //Enter Password here
 
-
+user usdetails;
+route rtdetails;
 IPAddress local_ip(192,168,1,1);
 IPAddress gateway(192,168,1,1);
 IPAddress subnet(255,255,255,0);
@@ -35,8 +45,7 @@ void setup() {
   resetInfo=ESP.getResetInfoPtr();
   WiFi.softAP(ssid, password);
   WiFi.softAPConfig(local_ip, gateway, subnet);
-  server.on("/",webpage);
-  server.on("/router",readData);
+  
   delay(100);
   server.begin();
   Serial.println(resetInfo ->reason);
@@ -49,60 +58,51 @@ void setup() {
     server.on("/profileup",successfulprofile);
     server.on("/routerup",successfulrouter);
   }
+  else
+  {
+    server.on("/",webpage);
+    server.on("/router",readData);
+  }
   
   
 }
 bool successfulrouter()
 { 
-  int j=0,k=0,r=0,s=100;
+  route rt;
   EEPROM.begin(512);
   Serial.print("SSID: ");
-  rusername=server.arg("rtusername");
+  rtdetails.rusername=server.arg("rtusername");
   Serial.println(server.arg("rtusername"));
-//  while(j!=rusername.length())
-//  {
-//    EEPROM.write(k,rusername[j]);
-//    j++;
-//    k++;
-//  }  
   Serial.print("Password:");
-  rpassword=server.arg("rtpassword");
+  rtdetails.rpassword=server.arg("rtpassword");
   Serial.println(server.arg("rtpassword"));
-//  while(r!=rpassword.length())
-//  {
-//    EEPROM.write(s,rpassword[r]);
-//    r++;
-//    s++;
-//  }  
   server.send(200,"text/html",registered);
-//  EEPROM.end();
+  EEPROM.put(0,rtdetails);
+  EEPROM.get(0,rt);
+  Serial.println(rt.rusername);
+  Serial.println(rt.rpassword);
+  server.send(200,"text/html",registered);
+  EEPROM.end();
   return true;
 }
 bool successfulprofile()
 {
-  int j=0,k=300,r=0,s=400;
-
+  
+  user us;
   EEPROM.begin(512);
   Serial.print("Username: ");
-  uusername=server.arg("username");
+  usdetails.uusername=server.arg("username");
   Serial.println(server.arg("username"));
-//  while(j!=uusername.length())
-//  {
-//    EEPROM.write(k,uusername[j]);
-//    j++;
-//    k++;
-//  }  
+
   Serial.print("Password:");
-  upassword=server.arg("password");
+  usdetails.upassword=server.arg("password");
   Serial.println(server.arg("password"));
-//  while(r!=upassword.length())
-//  {
-//    EEPROM.write(s,upassword[r]);
-//    r++;
-//    s++;
-//  }  
-  
-//  EEPROM.end();
+  EEPROM.put(100,usdetails);
+  EEPROM.get(100,us);
+  Serial.println(us.uusername);
+  Serial.println(us.upassword);
+  server.send(200,"text/html",registered);
+  EEPROM.end();
   return true;
   
 }
@@ -137,53 +137,35 @@ void webpage(){
 //}
 bool readData()
 {
-  int j=0,k=0,r=0,s=100;
+  user us;
+  
+  //String str;
   EEPROM.begin(512);
   if (server.args() == 0)
     return false;  // we could do in the caller an error handling on that
+  rtdetails.rusername=server.arg("rtusername");
   Serial.print("SSID: ");
-  rusername=server.arg("rtusername");
+  Serial.println(rtdetails.rusername);
   Serial.println(server.arg("rtusername"));
-  while(j!=rusername.length())
-  {
-    EEPROM.write(k,rusername[j]);
-    j++;
-    k++;
-  }
-    
-  Serial.print("Password:");
-  rpassword=server.arg("rtpassword");
-  Serial.println(server.arg("rtpassword"));
-  while(r!=rpassword.length())
-  {
-    EEPROM.write(s,rpassword[r]);
-    r++;
-    s++;
-  }  
-  j=0;
-  k=200;
-  Serial.print("Username: ");
-  uusername=server.arg("username");
-  Serial.println(server.arg("username"));
-  while(j!=uusername.length())
-  {
-    EEPROM.write(k,uusername[j]);
-    j++;
-    k++;
-  }
-  r=0;
-  s=300;  
-  Serial.print("Password:");
-  upassword=server.arg("password");
-  Serial.println(server.arg("password"));
-  while(r!=upassword.length())
-  {
-    EEPROM.write(s,upassword[r]);
-    r++;
-    s++;
-  }  
   
+  //Serial.print("httffjkggkgyh:");
+  //Serial.println(str);  
+  Serial.print("Password:");
+  rtdetails.rpassword=server.arg("rtpassword");
+  Serial.println(server.arg("rtpassword"));
+  EEPROM.put(0,rtdetails);
+  Serial.print("Username: ");
+  usdetails.uusername=server.arg("username");
+  Serial.println(server.arg("username"));
+  Serial.print("Password:");
+  usdetails.upassword=server.arg("password");
+  Serial.println(server.arg("password"));
+  EEPROM.put(100,usdetails);
+  EEPROM.get(100,us);
+  Serial.println(us.uusername);
+  Serial.println(us.upassword);
   server.send(200,"text/html",registered);
-  return true;
   EEPROM.end();
+  return true;
+  
 }
