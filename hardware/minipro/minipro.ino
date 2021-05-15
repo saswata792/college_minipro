@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <WiFi.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 #include<EEPROM.h>
 #include "time.h"
 #include "webpaged.h";
@@ -10,16 +11,18 @@
 #include "profile.h";
 #include <Arduino.h>
 #include <FirebaseArduino.h>
-#include "DHT.h"
-#define DHTPIN 2     
-#define DHTTYPE DHT11
+//#include "DHT.h"
+//#define DHTPIN 2     
+//#define DHTTYPE DHT11
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "pool.ntp.org");
 #define FIREBASE_HOST "esp32-82eba-default-rtdb.firebaseio.com"                     //Your Firebase Project URL goes here without "http:" , "\" and "/"
 #define FIREBASE_AUTH "VCyvBPExh4qBOfKIefGzCEg8UtTzYlYW5UQMFnAW" //Your Firebase Database Secret goes here
-#include "TimeLib.h"
-const char* ntpServer = "pool.ntp.org";
-const long  gmtOffset_sec = 19800;
-const int   daylightOffset_sec = 0;
-DHT dht(DHTPIN, DHTTYPE);
+//#include "TimeLib.h"
+//const char* ntpServer = "pool.ntp.org";
+//const long  gmtOffset_sec = 19800;
+//const int   daylightOffset_sec = 0;
+//DHT dht(DHTPIN, DHTTYPE);
 #define WIFI_SSID "Xiaomi_A40B"                                               //WiFi SSID to which you want NodeMCU to connect
 #define WIFI_PASSWORD "sps9804814979"                                      //Password of your wifi network 
 
@@ -63,20 +66,72 @@ ESP8266WebServer server(80);
 //  String yer=String(year());          // the year for the given time t
 //  return(date+':'+mon+':'+yer+':'+hr+':'+minu+':'+sec);
 //}
-void printLocalTime()
+String printLocalTime()
 {
-  struct tm timeinfo;
-  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
-//  if(!getLocalTime(&timeinfo)){
-//    Serial.println("Failed to obtain time");
-//    return;
-// }
+   timeClient.update();
+
+  unsigned long epochTime = timeClient.getEpochTime();
+//  Serial.print("Epoch Time: ");
+//  Serial.println(epochTime);
+//  
+//  String formattedTime = timeClient.getFormattedTime();
+//  Serial.print("Formatted Time: ");
+//  Serial.println(formattedTime);  
+
+  int Hour = timeClient.getHours();
   
+  String currentHour;
+  
+  if(Hour<10)
+      currentHour="0"+String(Hour);
+  else
+      currentHour=String(Hour);
+  int Minute = timeClient.getMinutes();
+ 
+ 
+  String currentMinute;
+  if(Minute<10)
+     currentMinute="0"+String(Minute);
+  else
+     currentMinute=String(Minute);
+  int Second = timeClient.getSeconds();
+  Serial.println(Second);
+  String currentSecond;
+  if(Second<10)
+    currentSecond="0"+String(Second);
+  else
+    currentSecond=String(Second);
+  String currentTime=currentHour+currentMinute+currentSecond;
+  
+ // String weekDay = weekDays[timeClient.getDay()];
+  struct tm *ptm = gmtime ((time_t *)&epochTime); 
+  int Day = ptm->tm_mday;
+  String monthDay;
+  if(Day<10)
+    monthDay="0"+String(Day);
+  else
+    monthDay=String(Day);
+  int Month = ptm->tm_mon+1;
+  String currentMonth;
+  if(Month<10)
+    currentMonth="0"+String(Month);
+  else
+    currentMonth=String(Month);
+//  String currentMonthName = months[currentMonth-1];
+  int currentYear = ptm->tm_year+1900;
+  //Print complete date:
+  String currentDate = monthDay+currentMonth+String(currentYear);
+  String code=currentDate+currentTime; 
+  delay(6000);
+  return code;
 }
 
 void setup() {
 //  String myTime;
   Serial.begin(74880);
+  timeClient.begin();
+  
+  timeClient.setTimeOffset(19800);
   //dht.begin();
 //  float h = dht.readHumidity();
 //  float t = dht.readTemperature();
@@ -89,8 +144,8 @@ void setup() {
 //  myTime=time();
 //  Serial.print("Milis:");
 //  Serial.println(myTime);
-  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-  printLocalTime();
+//  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+ 
   WiFi.softAP(ssid, password);
   WiFi.softAPConfig(local_ip, gateway, subnet);
   
@@ -167,6 +222,11 @@ void readrout()
 }
 void loop() {
   server.handleClient();
+  String timed=printLocalTime();
+  Serial.print("Current date: ");
+  Serial.println(timed);
+
+  Serial.println("");
   
 }
 void change()
