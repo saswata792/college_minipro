@@ -10,10 +10,10 @@ R"=====(
     </head>
     <body>
         <form action="/changepro" >
-            <button>Change your Profile</button>
+            <button>Change/Update your Profile</button>
         </form>
         <form action="/changerout">
-            <button>Change your Router</button>
+            <button>Change/Update your Router</button>
         </form>
    
 

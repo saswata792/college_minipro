@@ -1,0 +1,74 @@
+@media only screen and (max-width: 600px) {
+    /* For tablets: */
+    
+    .signup{
+        display:block;
+
+    }
+    
+  }
+
+button{
+    display: block;
+    text-align: center;
+    
+    position: relative;
+    top: 50%;
+    left:50%;
+    margin-top: 20px;
+    transform: translate(-50%,-50%);
+  }
+.username{
+    display: block;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    left:50%;
+    
+    transform: translate(-50%,-50%);
+}
+.password{
+  display: block;
+  text-align: center;
+  position: relative;
+  top: 60%;
+  left:50%;
+  
+  transform: translate(-50%,-50%);
+}
+.email{
+  display: block;
+  text-align: center;
+  position: relative;
+  top: 70%;
+  left:50%;
+ 
+  transform: translate(-50%,-50%);
+}
+.dob{
+  display: block;
+  text-align: center;
+  position: relative;
+  top: 90%;
+  left:50%;
+  
+  transform: translate(-50%,-50%);
+}
+
+  @media only screen and (max-width: 1000px) {
+    /* For desktop: */
+    .signup{
+        display: block;
+    }  
+    
+  } 
+
+.signup{
+    text-align: center;
+    width: 60%;
+    position: absolute;
+    top: 20%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background-color: rgb(179, 225, 241);
+}

@@ -1,0 +1,67 @@
+@media only screen and (max-width: 600px) {
+    /* For tablets: */
+    
+    input{
+        display:block;
+
+    }
+    
+  }
+
+button{
+    display: block;
+    text-align: center;
+    
+    position: relative;
+    top: 50%;
+    left:50%;
+    margin-top: 20px;
+    transform: translate(-50%,-50%);
+  }
+
+
+  @media only screen and (max-width: 1000px) {
+    /* For desktop: */
+    input{
+        display: block;
+    }  
+    
+  } 
+
+
+.email-two{
+    text-align: center;
+    width: 60%;
+    position: relative;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background-color: rgb(179, 225, 241);
+}
+.dob-two{
+  text-align: center;
+  width: 60%;
+  position: relative;
+  top: 70%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  background-color: rgb(179, 225, 241);
+}
+.email-two{
+  text-align: center;
+  width: 60%;
+  position: relative;
+  top: 90%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  background-color: rgb(179, 225, 241);
+}
+.username-two{
+  text-align: center;
+  width: 60%;
+  position: relative;
+  top: 100%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  background-color: rgb(179, 225, 241);
+}
