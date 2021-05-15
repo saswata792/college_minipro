@@ -8,7 +8,7 @@ class Mainchecker
     }
     setProfile(check)
     {
-        this.profile=check;
+        this.profile=check.val();
     }
     getProfile()
     {

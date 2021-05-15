@@ -20,7 +20,7 @@ function Signup()
 	
 	function store()
 	{
-		
+		var str="basicinfo";
 		const usrnm=document.getElementById("username").value;
 		const pass=document.getElementById("password").value;
 		const email=document.getElementById("email").value;
@@ -28,72 +28,55 @@ function Signup()
 		const addr=document.getElementById("address").value;
 		const contnm=document.getElementById("contnm").value;
 		const nameus=document.getElementById("nameus").value;
-		// inst.forEach((check)=>{
-		// 	if(check.username===usrnm)
-		// 	{
-		// 		alert("username already exist");
-		// 		history.push('/signup');
-		// 	}
-		// })
-		
-		// db.ref(usrnm).on('value',function(check){
-		// 	console.log(check.val());
-		// 	if(check.val()[str].username.val()===usrnm)
-		// 	{
-		// 		console.log(check.str);
-		// 		alert("username already exist");
-		// 		history.push('/signup');
-		// 	}
-		// });
-		db.ref(usrnm).on("value", snapshot => {
-			if(snapshot.exists())
-			{
-				alert("username already exist");
-				console.log(snapshot);
-
-		 		history.push('/signup');
-				
-			}
-		
-			else
-
-			{
-				if(usrnm.includes("@"))
+		const usrnm_array=usrnm.split("@");
+		if(usrnm_array[1]==="user")
+		{
+			db.ref().child("user").child(usrnm).get().then((snapshot) => {
+				console.log(snapshot.val());
+				if(snapshot.val().str.username===usrnm)
 				{
-					const usrnm_array=usrnm.split("@");
-					if(usrnm_array[1]==='user')
-						{
-							//1alert(usrnm_array[0]);
-							db.child(usrnm).child("basicinfo").set({
-								name: nameus,
-								username:usrnm,
-								password:pass,
-								email:email,
-								DateofBirth:date,
-								ContactNumber:contnm,
-								Address:addr
-								})
-								.then(()=>{
-									alert("Succesfully Registered");
-								})
-								.catch((error)=>{
-									alert("try again");
-								})
-							
-						}
-				}	
-					else
-					{
-						alert("it's mandatory to enter a @");
-					}
-
-			}
-			
-		}).catch((error)=>{
-			console.log(error);
-		})
+					alert("username already exist");
+					console.log(snapshot);
+					document.getElementById("username").value="";
+					document.getElementById("password").value="";
+					document.getElementById("email").value="";
+					document.getElementById("dob").value="";
+					document.getElementById("address").value="";
+					document.getElementById("contnm").value="";
+					document.getElementById("nameus").value="";
+					history.push('/signup');
+					
+				}
 		
-	    
+				else
+
+				{
+					
+						
+								//1alert(usrnm_array[0]);
+								db.ref().child("user").child(usrnm).child(str).set({
+									name: nameus,
+									username:usrnm,
+									password:pass,
+									email:email,
+									DateofBirth:date,
+									ContactNumber:contnm,
+									Address:addr
+									})
+									.then(()=>{
+										alert("Succesfully Registered");
+									})
+									.catch((error)=>{
+										alert("try again");
+									})
+								history.push('/profileuser');
+							
+				}	
+			}).catch((error)=>{
+				console.log(error);
+			})
+		
+		}
 	
 	}
 		return(

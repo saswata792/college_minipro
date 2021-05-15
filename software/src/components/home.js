@@ -28,23 +28,28 @@ function Header()
 	
 	function checkdata()
 	{
-		var str;
+		let str;
 		const usrnm=document.getElementById("username").value;
 	    const pass=document.getElementById("password").value;
 	    //const usrnm_array=usrnm.split("@");
 		let flag=0;
 		str="basicinfo";
-		db.ref().child(usrnm).child(str).get().then((snapshot) => {
-			console.log(snapshot);
-			if(snapshot===usrnm && snapshot.str.password===pass)
-			{
-				Mainchecker.setProfile(snapshot);
-				
-		 		history.push('/profileuser');
-				
-			}
-		
-		})
+		const usrnm_array=usrnm.split("@");
+		if(usrnm_array[1]==="user")
+		{
+
+			db.ref().child("user").child(usrnm).get().then((snapshot) => {
+				console.log(snapshot.val());
+				if(snapshot.val().str.username===usrnm && snapshot.val().str.password===pass)
+				{
+					Mainchecker.setProfile(snapshot.val());
+					flag=1;
+					history.push('/profileuser');
+					
+				}
+			
+			})
+		}
 		if(flag===0)
 			alert("your account doesn't exist"); 
 		
