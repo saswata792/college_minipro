@@ -3,7 +3,7 @@ import './signup.css';
 import { useHistory } from "react-router-dom";
 import firebase from "./fire.js";
 
-
+import Mainchecker from "./mainchecker.js";
 var db=firebase.database();
 function Signup()
 {
@@ -31,44 +31,100 @@ function Signup()
 		const usrnm_array=usrnm.split("@");
 		if(usrnm_array[1]==="user")
 		{
-			db.ref().child("user").child(usrnm).get().then((snapshot) => {
-				console.log(snapshot.val());
-				if(snapshot.val().str.username===usrnm)
+			db.ref("user/").child(usrnm).get().then((snapshot) => {
+				
+				try
 				{
-					alert("username already exist");
-					console.log(snapshot);
-					document.getElementById("username").value="";
-					document.getElementById("password").value="";
-					document.getElementById("email").value="";
-					document.getElementById("dob").value="";
-					document.getElementById("address").value="";
-					document.getElementById("contnm").value="";
-					document.getElementById("nameus").value="";
-					history.push('/signup');
-					
+					if(snapshot.val()[str].username===usrnm)
+						{
+						alert("username already exist");
+						console.log(snapshot);
+						document.getElementById("username").value="";
+						document.getElementById("password").value="";
+						document.getElementById("email").value="";
+						document.getElementById("dob").value="";
+						document.getElementById("address").value="";
+						document.getElementById("contnm").value="";
+						document.getElementById("nameus").value="";
+						window.location.reload();
+						}
 				}
 		
-				else
+				catch
 
 				{
 					
-						
+						let det ={basicinfo:{
+									
+							name: nameus,
+							username:usrnm,
+							password:pass,
+							email:email,
+							DateofBirth:date,
+							ContactNumber:contnm,
+							Address:addr
+							}}
 								//1alert(usrnm_array[0]);
-								db.ref().child("user").child(usrnm).child(str).set({
-									name: nameus,
-									username:usrnm,
-									password:pass,
-									email:email,
-									DateofBirth:date,
-									ContactNumber:contnm,
-									Address:addr
-									})
+								db.ref("user/").child(usrnm).child(str).set(det.basicinfo)
 									.then(()=>{
 										alert("Succesfully Registered");
 									})
 									.catch((error)=>{
-										alert("try again");
+										alert("trNamen");
 									})
+								Mainchecker.setProfile(det);
+								history.push('/profileuser');
+							
+				}	
+			}).catch((error)=>{
+				console.log(error);
+			})
+		
+		}
+		if(usrnm_array[1]==="admin")
+		{
+			db.ref("admin/").child(usrnm).get().then((snapshot) => {
+				
+				try
+				{
+					if(snapshot.val()[str].username===usrnm)
+						{
+						alert("username already exist");
+						console.log(snapshot);
+						document.getElementById("username").value="";
+						document.getElementById("password").value="";
+						document.getElementById("email").value="";
+						document.getElementById("dob").value="";
+						document.getElementById("address").value="";
+						document.getElementById("contnm").value="";
+						document.getElementById("nameus").value="";
+						window.location.reload();
+						}
+				}
+		
+				catch
+
+				{
+					
+						let det ={basicinfo:{
+									
+							name: nameus,
+							username:usrnm,
+							password:pass,
+							email:email,
+							DateofBirth:date,
+							ContactNumber:contnm,
+							Address:addr
+							}}
+								//1alert(usrnm_array[0]);
+								db.ref("admin/").child(usrnm).child(str).set(det.basicinfo)
+									.then(()=>{
+										alert("Succesfully Registered");
+									})
+									.catch((error)=>{
+										alert("trNamen");
+									})
+								Mainchecker.setProfile(det);
 								history.push('/profileuser');
 							
 				}	
@@ -78,27 +134,28 @@ function Signup()
 		
 		}
 	
+	
 	}
 		return(
 			<React.Fragment>
 			<div className="signup">
 			<h1> Signup</h1>
 			
-				<label for="username" >Username</label>
-				<input type="text" class="username" id="username" required></input>
+				<label htmlFor="username" >Username</label>
+				<input type="text" className="username" id="username" required></input>
 				<br></br>
-				<label for="password">Password</label>
-                <input type="password" class="password" id="password" required></input>
-				<label for="nameus">Full name</label>
-				<input id="nameus" class="nameus" required></input>
-                <label for="email">Email</label>
-                <input type="email" class="email" id="email" required></input>
-                <label for="dob">DOB</label>
-                <input type="date" class="dob"id="dob" required></input>
-				<label for="address">Address</label>
-				<input type="text" class="address" id="address"></input>
-				<label for="contnm">Contact Number</label>
-				<input type="number" id="contnm" class="contnm"></input>
+				<label htmlFor="password">Password</label>
+                <input type="password" className="password" id="password" required></input>
+				<label htmlFor="nameus">Full name</label>
+				<input id="nameus" className="nameus" required></input>
+                <label htmlFor="email">Email</label>
+                <input type="email" className="email" id="email" required></input>
+                <label htmlFor="dob">DOB</label>
+                <input type="date" className="dob"id="dob" required></input>
+				<label htmlFor="address">Address</label>
+				<input type="text" className="address" id="address"></input>
+				<label htmlFor="contnm">Contact Number</label>
+				<input type="number" id="contnm" className="contnm"></input>
                 <button onClick={store}>Signups</button>
 			
 			</div>

@@ -3,6 +3,8 @@ import './App.css';
 import Header from './components/home.js';
 import Signup from './components/signup.js';
 import Profileuser from './components/profileuser.js'; 
+import Measure from './components/measure.js';
+import Critical from './components/critical.js'; 
 import React from "react"; 
 import {
   BrowserRouter as Router,
@@ -32,6 +34,12 @@ function App() {
             </Route>
             <Route exact path="/profileuser">
               <Profileuser/>
+            </Route>
+            <Route exact path="/measure">
+              <Measure/>
+            </Route>
+            <Route exact path="/critical">
+              <Critical/>
             </Route>
         </Switch>
       </Router>

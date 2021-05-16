@@ -1,10 +1,10 @@
 import React from "react";
 
-import './profileuser.css';
+
 import Mainchecker from "./mainchecker.js";
 import { useHistory } from "react-router-dom";
 import firebase from "./fire.js";
-function Profileuser()
+function Profileadmin()
 {   
     var db=firebase.database();
     // const [inst,setinst]=React.useState([])
@@ -56,9 +56,9 @@ function Profileuser()
         
     }
     let  history= useHistory();
-    function measure()
+    function critical()
     {
-        history.push("/measure");
+        history.push("/critical");
     }
     function logout()
     {
@@ -80,7 +80,7 @@ function Profileuser()
     <React.Fragment>
         
         <button id="logout" onClick={logout}>Logout</button>
-        <button id="measure" onClick={measure}>Measure</button>
+        <button id="measure" onClick={critical}>Measure</button>
          <div id="profile">
             
             <label htmlFor="username">Username</label>
@@ -111,4 +111,4 @@ function Profileuser()
    
     );
 }
-export default Profileuser;
+export default Profileadmin;

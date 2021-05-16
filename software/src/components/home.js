@@ -28,30 +28,59 @@ function Header()
 	
 	function checkdata()
 	{
-		let str;
+		
 		const usrnm=document.getElementById("username").value;
 	    const pass=document.getElementById("password").value;
 	    //const usrnm_array=usrnm.split("@");
-		let flag=0;
-		str="basicinfo";
+		
+		var str="basicinfo";
 		const usrnm_array=usrnm.split("@");
 		if(usrnm_array[1]==="user")
 		{
 
-			db.ref().child("user").child(usrnm).get().then((snapshot) => {
-				console.log(snapshot.val());
-				if(snapshot.val().str.username===usrnm && snapshot.val().str.password===pass)
+			db.ref("user/").child(usrnm).get().then((snapshot) => {
+				
+				if(snapshot.val()[str].username===usrnm && snapshot.val()[str].password===pass)
 				{
+					
 					Mainchecker.setProfile(snapshot.val());
-					flag=1;
-					history.push('/profileuser');
+					
+					history.push('/measure');
 					
 				}
+				else if(snapshot.val()[str].password!==pass)
+				{
+					alert("wrong password,please check again");
+				}
+				else
+					alert("your account doesn't exist"); 
 			
 			})
 		}
-		if(flag===0)
-			alert("your account doesn't exist"); 
+		if(usrnm_array[1]==="admin")
+		{
+
+			db.ref("admin/").child(usrnm).get().then((snapshot) => {
+				
+				if(snapshot.val()[str].username===usrnm && snapshot.val()[str].password===pass)
+				{
+					
+					Mainchecker.setProfile(snapshot.val());
+					
+					history.push('/critical');
+					
+				}
+				else if(snapshot.val()[str].password!==pass)
+				{
+					alert("wrong password,please check again");
+				}
+				else
+					alert("your account doesn't exist"); 
+			
+			})
+		}
+		
+			
 		
 		// const check=db.collection('inst').get();
 		
@@ -63,10 +92,10 @@ function Header()
 			<div class="signin">
 			<h1> Signin</h1>
 			
-				<label for="username" >Username</label>
-				<input type="text" class="username-one" id="username" required></input>
-				<label for="password">Password</label>
-				<input type="password" class="password-one" id="password" required></input>
+				<label htmlFor="username" >Username</label>
+				<input type="text" className="username-one" id="username" required></input>
+				<label htmlFor="password">Password</label>
+				<input type="password" className="password-one" id="password" required></input>
 				<button id="signin" onClick={checkdata}>Signin</button>	
                 
 			
