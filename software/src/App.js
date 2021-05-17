@@ -41,6 +41,9 @@ function App() {
             <Route exact path="/critical">
               <Critical/>
             </Route>
+            <Route exact path="/critical">
+              <Critical/>
+            </Route>
         </Switch>
       </Router>
     </div>

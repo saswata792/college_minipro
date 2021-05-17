@@ -125,7 +125,7 @@ function Signup()
 										alert("trNamen");
 									})
 								Mainchecker.setProfile(det);
-								history.push('/profileuser');
+								history.push('/critical');
 							
 				}	
 			}).catch((error)=>{
