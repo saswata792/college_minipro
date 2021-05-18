@@ -80,7 +80,7 @@ function Profileadmin()
     <React.Fragment>
         
         <button id="logout" onClick={logout}>Logout</button>
-        <button id="measure" onClick={critical}>Measure</button>
+        <button id="measure" onClick={critical}>Critical</button>
          <div id="profile">
             
             <label htmlFor="username">Username</label>

@@ -3,17 +3,18 @@
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 #include<EEPROM.h>
+#include<FirebaseESP8266.h>
 #include "time.h"
 #include "webpaged.h";
 #include "sewebpaged.h";
 #include "register.h";
 #include "router.h";
 #include "profile.h";
-#include <Arduino.h>
-#include <FirebaseArduino.h>
-//#include "DHT.h"
-//#define DHTPIN 2     
-//#define DHTTYPE DHT11
+//#include <Arduino.h>
+//#include <FirebaseArduino.h>
+#include "DHT.h"
+#define DHTPIN 2     
+#define DHTTYPE DHT11
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
 #define FIREBASE_HOST "esp32-82eba-default-rtdb.firebaseio.com"                     //Your Firebase Project URL goes here without "http:" , "\" and "/"
@@ -22,10 +23,10 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org");
 //const char* ntpServer = "pool.ntp.org";
 //const long  gmtOffset_sec = 19800;
 //const int   daylightOffset_sec = 0;
-//DHT dht(DHTPIN, DHTTYPE);
+DHT dht(DHTPIN, DHTTYPE);
 #define WIFI_SSID "Xiaomi_A40B"                                               //WiFi SSID to which you want NodeMCU to connect
 #define WIFI_PASSWORD "sps9804814979"                                      //Password of your wifi network 
-
+FirebaseData fireStatus;
 String rusername;
 String rpassword;
 String uusername;
@@ -122,33 +123,33 @@ String printLocalTime()
   //Print complete date:
   String currentDate = monthDay+currentMonth+String(currentYear);
   String code=currentDate+currentTime; 
-  delay(6000);
+  
   return code;
 }
-
+void firebase()
+{
+  user users;
+  String times=printLocalTime();
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  Firebase.begin(FIREBASE_HOST,FIREBASE_AUTH);
+  EEPROM.get(100,users);
+  String usrnm=users.uusername;
+  String pass=users.upassword;
+  Firebase.setFloat(fireStatus,"user/usrnm/times/humidity",h);
+  Firebase.setFloat(fireStatus,"user/usrnm/times/temperature",t);
+ 
+}
 void setup() {
 //  String myTime;
   Serial.begin(74880);
   timeClient.begin();
-  
+  String time=printLocalTime();
   timeClient.setTimeOffset(19800);
-  //dht.begin();
-//  float h = dht.readHumidity();
-//  float t = dht.readTemperature();
-//  Serial.print("Humidity:");
-//  Serial.println(h);
-//  Serial.print("Temperature:");
-//  Serial.println(t);
   rst_info *resetInfo;
   resetInfo=ESP.getResetInfoPtr();
-//  myTime=time();
-//  Serial.print("Milis:");
-//  Serial.println(myTime);
-//  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
- 
   WiFi.softAP(ssid, password);
   WiFi.softAPConfig(local_ip, gateway, subnet);
-  
   delay(100);
   server.begin();
   Serial.println(resetInfo ->reason);
@@ -166,9 +167,8 @@ void setup() {
     server.on("/",webpage);
     server.on("/router",readData);
   }
-  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
   
-  
+  firebase();
 }
 
 bool successfulrouter()
