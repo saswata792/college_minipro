@@ -42,8 +42,8 @@ function Header()
 				
 				if(snapshot.val()[str].username===usrnm && snapshot.val()[str].password===pass)
 				{
-					
-					Mainchecker.setProfile(snapshot.val());
+					alert(snapshot.val()[str].username);
+					Mainchecker.setProfile(snapshot.val()[str].username);
 					
 					history.push('/measure');
 					
@@ -65,8 +65,8 @@ function Header()
 				if(snapshot.val()[str].username===usrnm && snapshot.val()[str].password===pass)
 				{
 					
-					Mainchecker.setProfile(snapshot.val());
-					
+					Mainchecker.setProfile(snapshot.val()[str].username);
+					alert(snapshot.val()[str].username);
 					history.push('/critical');
 					
 				}
@@ -80,7 +80,9 @@ function Header()
 			})
 		}
 		
-			
+		// function booked(){
+		// 	history.push("/book");
+		// }	
 		
 		// const check=db.collection('inst').get();
 		
@@ -101,6 +103,7 @@ function Header()
 			
 			
 			<button  id="signup" onClick={signupclick}>Signup</button>
+			 {/* <button onClick={booked}>Booked</button>  */}
 			</div>
 			</React.Fragment>
 

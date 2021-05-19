@@ -2,9 +2,11 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 import Mainchecker from "./mainchecker.js";
 import firebase from './fire.js';
-var db=firebase.database(); 
+var db=firebase.database();
+var cb=firebase.database();
  function Critical()
  {
+   
   let history=useHistory();
   function profile()
   {
@@ -18,7 +20,8 @@ var db=firebase.database();
   function fetchTime() {
     const time = new Date();
     const day = time.getDate().toString();
-    const month = (time.getMonth() + 1).toString();
+    let month = (time.getMonth() + 1).toString();
+    if(month < 10) month="0"+ month.toString();
     const year = time.getFullYear().toString();
     const hours = time.getHours().toString();
     let mint = time.getMinutes();
@@ -29,19 +32,28 @@ var db=firebase.database();
   }
   function Book(critical)
   {
-
+        
         var book_time=fetchTime();
-        var critic=db.ref("user/").child(critical).get();
-        db.ref("admin/").child(Mainchecker.getProfile()).child("16052021182752").set({
+        db.ref("user/").child(critical).get().then((snapshot)=>
+        {
+        
+        console.log(snapshot.val()["basicinfo"]["username"]);
+        db.ref("admin/").child(Mainchecker.getProfile()).child(book_time).set({
             Bookedby:Mainchecker.getProfile(),
-            dayte:book_time[0]+""+book_time[1]+"/"+book_time[2]+""+book_time[3]+"/"+book_time[4]+""+book_time[5]+""+book_time[6]+""+book_time[7],
+            date:book_time[0]+""+book_time[1]+"/"+book_time[2]+""+book_time[3]+"/"+book_time[4]+""+book_time[5]+""+book_time[6]+""+book_time[7],
             time:book_time[8]+""+book_time[9]+":"+book_time[10]+""+book_time[11]+":"+book_time[12]+""+book_time[13]  ,
-            patientusrnm :critic["basicinfo"]["username"],
-            patientaddr: critic["basicinfo"]["address"],
-            patientcontnm: critic["basicinfo"]["ContactNumber"]
+            patientusrnm :snapshot.val()["basicinfo"]["username"],
+            patientaddr: snapshot.val()["basicinfo"]["Address"],
+            patientcontnm: snapshot.val()["basicinfo"]["ContactNumber"]
+        }).then(()=>{
+          alert("Booked Successfully");
+          cb.ref("critical/").child(critical).remove();
+        }).catch((error)=>
+        {
+          alert("error",error)
         })
-        db.ref("critical/").child(critical).remove();
-
+        
+      })
   }
   // async function hari()
   // {
@@ -56,38 +68,80 @@ var db=firebase.database();
   // })
   function onDemand()
   {
+    
       db.ref("crtical/").get().then((snapshot)=>
       {
         // console.log(data.key)
         //   console.log(data.val())
         //   console.log(data.val()["username"])
         //   console.log(data.val().username)
+        let val=snapshot.val();
         let content=``;
-        Object.keys(snapshot.val()).map((data)=>
-        (
-          `<div class="one">
-            <label htmlFor="usrnm">Username</label>
-              <div>${snapshot.val()[data]["username"]}</div>
-            <label htmlFor="spotwo">SPO2</label>
-            <div>${snapshot.val()[data]["spotwo"]}</div>
-            <label htmlFor="heartrate">HEARTRATE</label>
-            <div>${snapshot.val()[data]["heartrate"]}</div>
-            <label htmlFor="time">TIME</label>
-            <div>${snapshot.val()[data]["time"]}</div>
-            <label htmlFor="time">TIME</label>
-            <div>${snapshot.val()[data]["date"]}</div>
-            <button id="book"}>Book</button>
-            
-            </div>`
         
-      
+        Object.keys(val).map((data)=>
+        (
+        cb.ref("user/").child(val[data]["username"]).get().then((snap)=>
+        {
+            var dat=snap.val()
+            `<div class="one">
+                <table>
+                  <tr><label htmlFor="usrnm">USERNAME</label></tr>
+                  <td><div id="usrnm">${val[data]["username"]}</div></td>
+                  <tr></tr>
+                  <tr><label htmlFor="addr">ADDRESS</label></tr>
+                  <td><div id="addr">${dat["basicinfo"]["Address"]}</div></td>
+                  <tr></tr>
+                  <tr><label htmlFor="contactnm">CONTACTNUMBER</label></tr>
+                  <td><div id="contactnm">${dat["basicinfo"]["ContactNumber"]}</div></td>
+                  <tr></tr>
+
+                  <tr><label htmlFor="dob">DATE OF BIRTH</label></tr>
+                  <td><div id="dob">${dat["basicinfo"]["DateofBirth"]}</div></td>
+                  <tr></tr>
+                  <tr><label htmlFor="spotwo">SPO2</label></tr>
+                  <td><div id="spotwo">${val[data]["spotwo"]}</div></td>
+                  <tr></tr>
+                  <tr><label htmlFor="heartrate">HEARTRATE</label></tr>
+                <td> <div id="heartrate">${val[data]["heartrate"]}</div></td>
+                  <tr></tr>
+                <tr> <label htmlFor="time">TIME</label></tr>
+                <td> <div id="time">${val[data]["time"]}</div></td>
+                  <tr></tr>
+                <tr> <label htmlFor="date">DATE</label></tr>
+                  <td><div id="date">${val[data]["date"]}</div></td>
+                  <tr></tr>
+                  <button id="${val[data]["username"]}">Book</button>
+                
+                </table>
+                  </div>`
+          
+          })
           // console.log(childSnap.key)
           // console.log(childSnap.val())
         )).forEach(element=>{
           content += element
+          
       })
-      document.getElementById("cricpat").innerHTML=content
+      document.getElementById("cricpat").innerHTML=content;
+      console.log(content)
+    
+      
+      Object.keys(val).forEach((data)=>
+      {
+        
+       
+        document.getElementById(val[data]["username"]).addEventListener("click",function(){
+          
+          console.log(val[data]["username"]);
+          Book(val[data]["username"]);
+        })
+      })
     })
+
+      
+        
+      
+    
 }
 
   // var cricpat=Object.keys(critical).map(critic);

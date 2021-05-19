@@ -5,6 +5,7 @@ import Signup from './components/signup.js';
 import Profileuser from './components/profileuser.js'; 
 import Measure from './components/measure.js';
 import Critical from './components/critical.js'; 
+//mport Book from "./components/book.js";
 import React from "react"; 
 import {
   BrowserRouter as Router,
@@ -44,6 +45,9 @@ function App() {
             <Route exact path="/critical">
               <Critical/>
             </Route>
+            {/* <Route exact path="/book">
+              <Book/>
+            </Route> */}
         </Switch>
       </Router>
     </div>

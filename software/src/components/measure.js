@@ -19,25 +19,28 @@ var db=firebase.database();
     db.ref("user/").child(Mainchecker.getProfile()).get().then((snapshot)=>
     {
       let content=``;
+      var str;
       Object.keys(snapshot.val()).map((data)=>
       (
-      `<div class="one">
-       
-        <label htmlFor="spotwo">SPO2</label>
-        <div>${snapshot.val()[data]["spotwo"]}</div>
-     
-        <label htmlFor="heartrate">HEARTRATE</label>
-        <div>${snapshot.val()[data]["heartrate"]}</div>
-        <label htmlFor="time">TIME</label>
-        <div>${snapshot.val()[data]["time"]}</div>
-        <label htmlFor="time">DATE</label>
-        <div>${snapshot.val()[data]["date"]}</div>
-      </div>`
-      )).forEach((element)=>
-      {
-        content+=element;
-      })
-      document.getElementById("measure").innerHTML=content;
+       str=snapshot.val()[data]
+      (str.localeCompare("basicinfo")) ? null 
+        : `<div class="one">
+        
+          <label htmlFor="spotwo">SPO2</label>
+          <div>${snapshot.val()[data]["spotwo"]}</div>
+      
+          <label htmlFor="heartrate">HEARTRATE</label>
+          <div>${snapshot.val()[data]["heartrate"]}</div>
+          <label htmlFor="time">TIME</label>
+          <div>${snapshot.val()[data]["time"]}</div>
+          <label htmlFor="time">DATE</label>
+          <div>${snapshot.val()[data]["date"]}</div>
+        </div>`
+        )).forEach((element)=>
+        {
+          content+=element;
+        })
+        document.getElementById("measure").innerHTML=content;
     })
   }
   return(

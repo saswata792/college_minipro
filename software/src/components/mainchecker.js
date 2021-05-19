@@ -10,6 +10,7 @@ class Mainchecker
     {
         
         this.profile=check;
+        alert(this.profile);
     }
     getProfile()
     {

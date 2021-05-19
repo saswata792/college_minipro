@@ -2,11 +2,11 @@
 #include<EEPROM.h>
 #include <WebServer.h>
 #include<FirebaseESP32.h>
-#include "./webpaged.h";
-#include "./sewebpaged.h";
-#include "./register.h";
-#include "./router.h";
-#include "./profile.h";
+#include "webpaged.h";
+#include "sewebpaged.h";
+#include "register.h";
+#include "router.h";
+#include "profile.h";
 //#include <rom/rtc.h>
 /* Put your SSID & Password */
 const char* ssid = "ESP32";  // Enter SSID here
@@ -15,7 +15,7 @@ const char* password = "12345678";  //Enter Password here
 #define DHTPIN 2     
 #define DHTTYPE DHT11
 WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP, "pool.ntp.org");
+//NTPClient timeClient(ntpUDP, "pool.ntp.org");
 #define FIREBASE_HOST "esp32-82eba-default-rtdb.firebaseio.com"                     //Your Firebase Project URL goes here without "http:" , "\" and "/"
 #define FIREBASE_AUTH "VCyvBPExh4qBOfKIefGzCEg8UtTzYlYW5UQMFnAW" //Your Firebase Database Secret goes here
 #include "TimeLib.h"
@@ -23,20 +23,20 @@ const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 19800;
 const int   daylightOffset_sec = 0;
 DHT dht(DHTPIN, DHTTYPE);
-#define WIFI_SSID "Xiaomi_A40B"                                               //WiFi SSID to which you want NodeMCU to connect
-#define WIFI_PASSWORD "sps9804814979"                                      //Password of your wifi network 
+//#define WIFI_SSID "Xiaomi_A40B"                                               //WiFi SSID to which you want NodeMCU to connect
+//#define WIFI_PASSWORD "sps9804814979"                                      //Password of your wifi network 
 FirebaseData fireStatus;
 String rusername;
 String rpassword;
 String uusername;
 String upassword;
-extern "C" {
-#include <user_interface.h>
-}
+//extern "C" {
+//#include <user_interface.h>
+//}
 typedef struct
 {
-  String rusername;
-  String rpassword;
+  const char* rusername;
+  const char* rpassword;
 }route;
 typedef struct
 {
@@ -70,34 +70,38 @@ void setup()
   
   //init and get the time
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-  Serial.println(get_reset_reason(0));
-  if(get_reset_reason(0)==6)
-  {
-    server.on("/",change);
-    server.on("/changepro",readpro);
-    server.on("/changerout",readrout);
-    //server.on("/router",readUserData);
-    server.on("/profileup",successfulprofile);
-    server.on("/routerup",successfulrouter);
-  }
+//  Serial.println(get_reset_reason(0));
+//  if(get_reset_reason(0)==6)
+//  {
+//    server.on("/",change);
+//    server.on("/changepro",readpro);
+//    server.on("/changerout",readrout);
+//    //server.on("/router",readUserData);
+//    server.on("/profileup",successfulprofile);
+//    server.on("/routerup",successfulrouter);
+//  }
  
   server.on("/",webpage);
   server.on("/router",readData);
-  station();
-  
+  route rout;
+  EEPROM.get(0,rout);
+  if(rout.rusername!="" && rout.rpassword!="")
+  {
+    station();
+  }
 }
-String printLocalTime()
+void printLocalTime()
 {
     struct tm timeinfo;
     
     Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
-    return timeinfo;
+    
 }
 void station()
 {
-  user users;
-  EEPROM.get(100,users);
-  WiFi.begin(users.uusername, users.upassword);
+  route rout;
+  EEPROM.get(0,rout);
+  WiFi.begin(rout.rusername, rout.rpassword);
   while (WiFi.status() != WL_CONNECTED) {
       delay(500);
       Serial.print(".");
@@ -105,20 +109,20 @@ void station()
   Serial.println(" CONNECTED");
 }    
  
-void firebase()
-{
-  user users;
-  String times=printLocalTime();
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
-//  Firebase.begin(FIREBASE_HOST,FIREBASE_AUTH);
-  EEPROM.get(100,users);
-  String usrnm=users.uusername;
-  String pass=users.upassword;
-  Firebase.setFloat(fireStatus,"user/usrnm/times/humidity",h);
-  Firebase.setFloat(fireStatus,"user/usrnm/times/temperature",t);
- 
-}
+//void firebase()
+//{
+//  user users;
+//  String times=printLocalTime();
+//  float h = dht.readHumidity();
+//  float t = dht.readTemperature();
+////  Firebase.begin(FIREBASE_HOST,FIREBASE_AUTH);
+//  EEPROM.get(100,users);
+//  String usrnm=users.uusername;
+//  String pass=users.upassword;
+//  Firebase.setFloat(fireStatus,"user/usrnm/times/humidity",h);
+//  Firebase.setFloat(fireStatus,"user/usrnm/times/temperature",t);
+// 
+//}
 
 bool successfulrouter()
 { 

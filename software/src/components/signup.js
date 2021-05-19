@@ -122,7 +122,7 @@ function Signup()
 										alert("Succesfully Registered");
 									})
 									.catch((error)=>{
-										alert("trNamen");
+										alert("error",error);
 									})
 								Mainchecker.setProfile(det);
 								history.push('/critical');
