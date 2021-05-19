@@ -2,11 +2,11 @@
 #include<EEPROM.h>
 #include <WebServer.h>
 #include<FirebaseESP32.h>
-#include "webpaged.h";
-#include "sewebpaged.h";
-#include "register.h";
-#include "router.h";
-#include "profile.h";
+#include "./webpaged.h";
+#include "./sewebpaged.h";
+#include "./register.h";
+#include "./router.h";
+#include "./profile.h";
 //#include <rom/rtc.h>
 /* Put your SSID & Password */
 const char* ssid = "ESP32";  // Enter SSID here
@@ -14,10 +14,10 @@ const char* password = "12345678";  //Enter Password here
 #include "DHT.h"
 #define DHTPIN 2     
 #define DHTTYPE DHT11
-//WiFiUDP ntpUDP;
-//NTPClient timeClient(ntpUDP, "pool.ntp.org");
-//#define FIREBASE_HOST "esp32-82eba-default-rtdb.firebaseio.com"                     //Your Firebase Project URL goes here without "http:" , "\" and "/"
-//#define FIREBASE_AUTH "VCyvBPExh4qBOfKIefGzCEg8UtTzYlYW5UQMFnAW" //Your Firebase Database Secret goes here
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "pool.ntp.org");
+#define FIREBASE_HOST "esp32-82eba-default-rtdb.firebaseio.com"                     //Your Firebase Project URL goes here without "http:" , "\" and "/"
+#define FIREBASE_AUTH "VCyvBPExh4qBOfKIefGzCEg8UtTzYlYW5UQMFnAW" //Your Firebase Database Secret goes here
 #include "TimeLib.h"
 const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 19800;
@@ -66,12 +66,7 @@ void setup()
   WiFi.softAPConfig(local_ip, gateway, subnet);
   delay(100);
   server.begin();
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-      delay(500);
-      Serial.print(".");
-  }
-  Serial.println(" CONNECTED");
+  
   
   //init and get the time
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
@@ -88,7 +83,7 @@ void setup()
  
   server.on("/",webpage);
   server.on("/router",readData);
-  
+  station();
   
 }
 String printLocalTime()
@@ -98,7 +93,17 @@ String printLocalTime()
     Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
     return timeinfo;
 }
-    
+void station()
+{
+  user users;
+  EEPROM.get(100,users);
+  WiFi.begin(users.uusername, users.upassword);
+  while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+  }
+  Serial.println(" CONNECTED");
+}    
  
 void firebase()
 {
