@@ -7,6 +7,7 @@ import firebase from "./fire.js";
 function Profileadmin()
 {   
     var db=firebase.database();
+    console.log(Mainchecker.getProfile());
     // const [inst,setinst]=React.useState([])
 	// React.useEffect(()=>
 	// 	{	
@@ -38,8 +39,9 @@ function Profileadmin()
         const prpass=document.getElementById('password-two').value;
         const nwpass=document.getElementById('nwpassword-two').value;
         var str="basicinfo";
-        if(Mainchecker.getProfile()[str].password===prpass)
+        if(Mainchecker.getProfile()[str]["password"]===prpass)
         {
+            
             var check=Mainchecker.getProfile();
             console.log(check[str].password)
             console.log(check[str].username)

@@ -67,8 +67,16 @@ var cb=firebase.database();
   //   console.log(data);
   // })
   function onDemand()
-  {
-    
+  {//.child(val[data]["username"])
+    let basicInfo=[]
+    //let index=0
+    cb.ref("user/").get().then((snap)=>{
+      //console.log(snap.val())
+      Object.keys(snap.val()).forEach(info=>{
+        basicInfo.push(snap.val()[info]["basicinfo"])
+      })
+    })
+    //console.log(basicInfo)
       db.ref("crtical/").get().then((snapshot)=>
       {
         // console.log(data.key)
@@ -77,53 +85,63 @@ var cb=firebase.database();
         //   console.log(data.val().username)
         let val=snapshot.val();
         let content=``;
-        
+        //let ino=" ";
         Object.keys(val).map((data)=>
         (
-        cb.ref("user/").child(val[data]["username"]).get().then((snap)=>
-        {
-            var dat=snap.val()
+
+            
             `<div class="one">
                 <table>
-                  <tr><label htmlFor="usrnm">USERNAME</label></tr>
+                
+                  <tr><label htmlFor="usrnm">USERNAME</label>
                   <td><div id="usrnm">${val[data]["username"]}</div></td>
-                  <tr></tr>
-                  <tr><label htmlFor="addr">ADDRESS</label></tr>
-                  <td><div id="addr">${dat["basicinfo"]["Address"]}</div></td>
-                  <tr></tr>
-                  <tr><label htmlFor="contactnm">CONTACTNUMBER</label></tr>
-                  <td><div id="contactnm">${dat["basicinfo"]["ContactNumber"]}</div></td>
-                  <tr></tr>
-
-                  <tr><label htmlFor="dob">DATE OF BIRTH</label></tr>
-                  <td><div id="dob">${dat["basicinfo"]["DateofBirth"]}</div></td>
-                  <tr></tr>
-                  <tr><label htmlFor="spotwo">SPO2</label></tr>
+                  </tr><span class="DND">`+
+                  
+                  basicInfo.map((index)=>{
+                    return ((val[data]["username"]===index["username"])?
+                    `<tr><label htmlFor="addr">ADDRESS</label>
+                    <td><div id="addr">${index["Address"]}</div></td>
+                    </tr>
+                    <tr><label htmlFor="contactnm">CONTACTNUMBER</label>
+                    <td><div id="contactnm">${index["ContactNumber"]}</div></td>
+                  </tr>
+                    <tr><label htmlFor="dob">DATE OF BIRTH</label>
+                    <td><div id="dob">${index["DateofBirth"]}</div></td>
+                    </span>
+                  </tr><span class="DND">`:``
+                  )
+                })+
+                  
+                  `</span>
+                  <tr><label htmlFor="spotwo">SPO2</label>
+                  
                   <td><div id="spotwo">${val[data]["spotwo"]}</div></td>
-                  <tr></tr>
-                  <tr><label htmlFor="heartrate">HEARTRATE</label></tr>
+                </tr>
+                
+                <tr><label htmlFor="heartrate">HEARTRATE</label>
                 <td> <div id="heartrate">${val[data]["heartrate"]}</div></td>
-                  <tr></tr>
-                <tr> <label htmlFor="time">TIME</label></tr>
+                </tr>
+                <tr> <label htmlFor="time">TIME</label>
                 <td> <div id="time">${val[data]["time"]}</div></td>
-                  <tr></tr>
-                <tr> <label htmlFor="date">DATE</label></tr>
+                </tr>
+                <tr> <label htmlFor="date">DATE</label>
                   <td><div id="date">${val[data]["date"]}</div></td>
-                  <tr></tr>
+                  </tr>
                   <button id="${val[data]["username"]}">Book</button>
                 
                 </table>
                   </div>`
           
-          })
+            
           // console.log(childSnap.key)
           // console.log(childSnap.val())
-        )).forEach(element=>{
-          content += element
-          
-      })
+          )).forEach(element=>{
+            content += element
+          })
+
+      
       document.getElementById("cricpat").innerHTML=content;
-      console.log(content)
+     // console.log(content)
     
       
       Object.keys(val).forEach((data)=>

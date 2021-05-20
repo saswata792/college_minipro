@@ -1,65 +1,88 @@
-// import React from "react";
-// import firebase from "./fire.js";
-// var db=firebase.database();
-// function Book(){
-//     function Booked()
-//   {
-//       db.ref("admin/").get().then((snapshot)=>
-//       {
-//         // console.log(data.key)
-//         //   console.log(data.val())
-//         //   console.log(data.val()["username"])
-//         //   console.log(data.val().username)
-//         let content=``;
-//         Object.keys(snapshot.val()).map((data)=>
-//         (
-//           `<div class="one">
-//             <label htmlFor="usrnm">Username</label>
-//               <div>${snapshot.val()[data]["Bookedby"]}</div>
-//             <label htmlFor="spotwo">SPO2</label>
-//             <div>${snapshot.val()[data]["spotwo"]}</div>
-//             <label htmlFor="heartrate">HEARTRATE</label>
-//             <div>${snapshot.val()[data]["heartrate"]}</div>
-//             <label htmlFor="time">TIME</label>
-//             <div>${snapshot.val()[data]["time"]}</div>
-//             <label htmlFor="time">TIME</label>
-//             <div>${snapshot.val()[data]["date"]}</div>
-//             <button id="${snapshot.val()[data]}>Book</button>
-            
-//             </div>`
-        
+import React from "react";
+import firebase from "./fire.js";
+var db=firebase.database();
+function Book(){
+    let admit=[];
+    let cover=[];
+    function Booked()
+    {
       
-//           // console.log(childSnap.key)
-//           // console.log(childSnap.val())
-//         )).forEach(element=>{
-//           content += element
-//       })
-//       document.getElementById("bookpat").innerHTML=content;
+      db.ref("admin/").get().then((snapshot)=>
+      {
+        Object.keys(snapshot.val()).forEach(data=>{
+            admit.push(snapshot.val()[data])
+        })
     
-//     })
-    
-// }
+      })
+      let content=``;
+      console.log(admit);
+      admit.forEach((index)=>
+      {
+          index.forEach((dat)=>{
+            cover.push(dat)
+          })
+          
+      })
+      console.log(cover)
+    //   admit.map((index)=>
+    //   (   
+    //     index.map((dat)=>
+    //     {
+    //         console.log(index.dat["username"])
+    //       (index.dat["username"]==='')? 
+    //         `<div class="one">
+    //           <label htmlFor="usrnm">Username</label>
+    //             <div>${index.dat["Bookedby"]}</div>
+    //           <label htmlFor="spotwo">SPO2</label>
+    //           <div>${index.dat["spotwo"]}</div>
+    //           <label htmlFor="heartrate">HEARTRATE</label>
+    //           <div>${index.dat["heartrate"]}</div>
+    //           <label htmlFor="time">TIME</label>
+    //           <div>${index.dat["time"]}</div>
+    //           <label htmlFor="time">TIME</label>
+    //           <div>${index.dat["date"]}</div>
+              
+              
+    //           </div>`:``
+          
+        
+    //         // console.log(childSnap.key)
+    //         // console.log(childSnap.val())
+    //       }).forEach(element=>{
+    //         content += element
+    //       })
+    //     ))
 
-//   // var cricpat=Object.keys(critical).map(critic);
-//   // function  critic(data)
-//   // {
-//   //   return(
+
+        console.log(content);
+        document.getElementById("bookpat").innerHTML=content;
+    }     
+   
+    
+    
+    
+
+
+  // var cricpat=Object.keys(critical).map(critic);
+  // function  critic(data)
+  // {
+  //   return(
  
-//   //   )
-//   // }
+  //   )
+  // }
   
   
-//   return(
-//       <React.Fragment>
+  return(
+      <React.Fragment>
           
-//           <button onClick={Booked}>Click to show the ones Serviced/Yet to Service</button>
-//           <div id="bookpat">
+          <button onClick={Booked}>Click to show the ones Serviced/Yet to Service</button>
+          <div id="bookpat">
           
-//           </div>
+          </div>
       
       
          
-//       </React.Fragment>
-//   )
-// }
-// export default Book;
+      </React.Fragment>
+  )
+}
+export default Book;

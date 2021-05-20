@@ -43,7 +43,7 @@ function Header()
 				if(snapshot.val()[str].username===usrnm && snapshot.val()[str].password===pass)
 				{
 					alert(snapshot.val()[str].username);
-					Mainchecker.setProfile(snapshot.val()[str].username);
+					Mainchecker.setProfile(usrnm);
 					
 					history.push('/measure');
 					
@@ -65,7 +65,7 @@ function Header()
 				if(snapshot.val()[str].username===usrnm && snapshot.val()[str].password===pass)
 				{
 					
-					Mainchecker.setProfile(snapshot.val()[str].username);
+					Mainchecker.setProfile(usrnm);
 					alert(snapshot.val()[str].username);
 					history.push('/critical');
 					
@@ -80,15 +80,14 @@ function Header()
 			})
 		}
 		
-		// function booked(){
-		// 	history.push("/book");
-		// }	
+		
 		
 		// const check=db.collection('inst').get();
 		
-			
-			
 	}
+	function booked(){
+		history.push("/book");
+	}	
 		return(
 			<React.Fragment>
 			<div class="signin">
@@ -103,7 +102,7 @@ function Header()
 			
 			
 			<button  id="signup" onClick={signupclick}>Signup</button>
-			 {/* <button onClick={booked}>Booked</button>  */}
+			 <button onClick={booked}>Booked</button> 
 			</div>
 			</React.Fragment>
 

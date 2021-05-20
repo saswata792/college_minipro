@@ -7,6 +7,8 @@ import firebase from "./fire.js";
 function Profileuser()
 {   
     var db=firebase.database();
+    var check=Mainchecker.getProfile();
+    console.log(check)
     // const [inst,setinst]=React.useState([])
 	// React.useEffect(()=>
 	// 	{	
@@ -41,6 +43,7 @@ function Profileuser()
         if(Mainchecker.getProfile()[str].password===prpass)
         {
             var check=Mainchecker.getProfile();
+            console.log(check)
             console.log(check[str].password)
             console.log(check[str].username)
             db.ref("user/").child(check[str].username).child(str).update({

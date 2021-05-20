@@ -19,11 +19,12 @@ var db=firebase.database();
     db.ref("user/").child(Mainchecker.getProfile()).get().then((snapshot)=>
     {
       let content=``;
-      var str;
+      console.log(Mainchecker.getProfile())
       Object.keys(snapshot.val()).map((data)=>
       (
-       str=snapshot.val()[data]
-      (str.localeCompare("basicinfo")) ? null 
+       
+       
+      (snapshot.val()[data]["username"]===Mainchecker.getProfile()) ? `` 
         : `<div class="one">
         
           <label htmlFor="spotwo">SPO2</label>

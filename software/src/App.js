@@ -3,9 +3,10 @@ import './App.css';
 import Header from './components/home.js';
 import Signup from './components/signup.js';
 import Profileuser from './components/profileuser.js'; 
+import Profileadmin from './components/profileadmin.js';
 import Measure from './components/measure.js';
 import Critical from './components/critical.js'; 
-//mport Book from "./components/book.js";
+import Book from './components/book.js';
 import React from "react"; 
 import {
   BrowserRouter as Router,
@@ -36,18 +37,19 @@ function App() {
             <Route exact path="/profileuser">
               <Profileuser/>
             </Route>
+            <Route exact path="/profileadmin">
+              <Profileadmin/>
+            </Route>
             <Route exact path="/measure">
               <Measure/>
             </Route>
             <Route exact path="/critical">
               <Critical/>
             </Route>
-            <Route exact path="/critical">
-              <Critical/>
-            </Route>
-            {/* <Route exact path="/book">
+            <Route exact path="/book">
               <Book/>
-            </Route> */}
+            </Route>
+            
         </Switch>
       </Router>
     </div>
