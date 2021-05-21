@@ -6,8 +6,10 @@ import { useHistory } from "react-router-dom";
 import firebase from "./fire.js";
 function Profileadmin()
 {   
+    
     var db=firebase.database();
-    console.log(Mainchecker.getProfile());
+    var check=Mainchecker.getProfile();
+    var str="basicinfo";
     // const [inst,setinst]=React.useState([])
 	// React.useEffect(()=>
 	// 	{	
@@ -38,24 +40,31 @@ function Profileadmin()
     {
         const prpass=document.getElementById('password-two').value;
         const nwpass=document.getElementById('nwpassword-two').value;
-        var str="basicinfo";
-        if(Mainchecker.getProfile()[str]["password"]===prpass)
+        
+        
+        
+        if(check[str]["password"]===prpass)
         {
             
-            var check=Mainchecker.getProfile();
-            console.log(check[str].password)
-            console.log(check[str].username)
-            db.ref("user/").child(check[str].username).child(str).update({
+            
+            console.log(check[str]["password"])
+            console.log(check[str]["username"])
+            db.ref("admin/").child(check[str]["username"]).child(str).update({
                 password:nwpass
+            }).then((data)=>{
+                alert("password updated")
+                document.getElementById("passchange").style.display="none"
             })
-            alert("password updated");
-           document.getElementById("passchange").style.display="none";
+            
+            
 
             
         }
         else
             alert("you have pressed wrong password");
+       
         
+        document.getElementById("passchange").style.display="none"
     }
     let  history= useHistory();
     function critical()
@@ -77,7 +86,7 @@ function Profileadmin()
         
 
     }
-    var str="basicinfo";//Mainchecker.getProfile().str.username
+    //Mainchecker.getProfile().str.username
     return(
     <React.Fragment>
         
@@ -87,17 +96,17 @@ function Profileadmin()
             
             <label htmlFor="username">Username</label>
          
-            <input  id="username" className="username-two" value={Mainchecker.getProfile()[str].username}></input>
+            <div  id="username" className="username-two" >{check[str]["username"]}</div>
             <label htmlFor="name">Name</label>
-            <input id="name" className="name-two" value={Mainchecker.getProfile()[str].name}></input> 
+            <div id="name" className="name-two" >{check[str]["name"]}</div> 
             <label htmlFor="email">Email</label>
-            <input id="email" className="email-two" value={Mainchecker.getProfile()[str].email}></input>
+            <div id="email" className="email-two">{check[str]["email"]}</div>
             <label htmlFor="dob">DateofBirth</label>
-            <input id="dob" className="dob-two" value={Mainchecker.getProfile()[str].DateofBirth}></input>
+            <div id="dob" className="dob-two">{check[str]["DateofBirth"]}</div>
             <label htmlFor="address">Address</label>
-            <input  id="address" className="address-two" value={Mainchecker.getProfile()[str].Address}></input>
+            <div  id="address" className="address-two">{check[str]["Address"]}</div>
             <label htmlFor="contactnm">Contact Number</label>
-            <input id="contactnm" className="contactnm-two" value={Mainchecker.getProfile()[str].ContactNumber}></input> 
+            <div id="contactnm" className="contactnm-two" >{check[str]["ContactNumber"]}</div> 
             <button onClick={passchang}>Change Password</button>
             <div id="passchange" style={{display:"none"}}>
                     <label htmlFor="password-two">Previous Password</label>
@@ -105,12 +114,12 @@ function Profileadmin()
                     <label htmlFor="nwpassword-two">New Password</label>
                     <input id="nwpassword-two" className="nwpassword-two" onChange={passchange}></input>
                     <button id="save" style={{display:"none"}} onClick={passchanged}>Save</button>
-            </div> 
+            </div>
         
             
          </div>
     </React.Fragment>
    
-    );
+    )
 }
 export default Profileadmin;

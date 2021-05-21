@@ -1,11 +1,12 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import Mainchecker from "./mainchecker.js";
-import firebase from "./fire.js";
-var db=firebase.database();
+//import firebase from "./fire.js";
+//var db=firebase.database();
  function Measure()
  {
   let history=useHistory();
+  let snapshot=Mainchecker.getProfile();
   function profile()
   {
     history.push('/profileuser');
@@ -16,33 +17,33 @@ var db=firebase.database();
 
   }
   function measured(){
-    db.ref("user/").child(Mainchecker.getProfile()).get().then((snapshot)=>
-    {
+    // db.ref("user/").child(Mainchecker.getProfile()).get().then((snapshot)=>
+    // {
       let content=``;
-      console.log(Mainchecker.getProfile())
-      Object.keys(snapshot.val()).map((data)=>
+      
+      Object.keys(snapshot).map((data)=>
       (
        
        
-      (snapshot.val()[data]["username"]===Mainchecker.getProfile()) ? `` 
-        : `<div class="one">
+      (snapshot[data]["username"]===undefined) ?`<div class="one">
         
-          <label htmlFor="spotwo">SPO2</label>
-          <div>${snapshot.val()[data]["spotwo"]}</div>
-      
-          <label htmlFor="heartrate">HEARTRATE</label>
-          <div>${snapshot.val()[data]["heartrate"]}</div>
-          <label htmlFor="time">TIME</label>
-          <div>${snapshot.val()[data]["time"]}</div>
-          <label htmlFor="time">DATE</label>
-          <div>${snapshot.val()[data]["date"]}</div>
-        </div>`
+      <label htmlFor="spotwo">SPO2</label>
+      <div>${snapshot[data]["spotwo"]}</div>
+  
+      <label htmlFor="heartrate">HEARTRATE</label>
+      <div>${snapshot[data]["heartrate"]}</div>
+      <label htmlFor="time">TIME</label>
+      <div>${snapshot[data]["time"]}</div>
+      <label htmlFor="time">DATE</label>
+      <div>${snapshot[data]["date"]}</div>
+    </div>`: `` 
+        
         )).forEach((element)=>
         {
           content+=element;
         })
         document.getElementById("measure").innerHTML=content;
-    })
+   // })
   }
   return(
       <React.Fragment>

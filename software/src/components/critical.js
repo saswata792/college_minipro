@@ -6,10 +6,11 @@ var db=firebase.database();
 var cb=firebase.database();
  function Critical()
  {
-   
+  
   let history=useHistory();
   function profile()
   {
+    
     history.push('/profileadmin');
   }
   function logout()
@@ -36,10 +37,11 @@ var cb=firebase.database();
         var book_time=fetchTime();
         db.ref("user/").child(critical).get().then((snapshot)=>
         {
+         
+         var  nm=Mainchecker.getProfile()["basicinfo"]["username"]
         
-        console.log(snapshot.val()["basicinfo"]["username"]);
-        db.ref("admin/").child(Mainchecker.getProfile()).child(book_time).set({
-            Bookedby:Mainchecker.getProfile(),
+        db.ref("admin/").child(nm).child(book_time).set({
+            Bookedby:nm,
             date:book_time[0]+""+book_time[1]+"/"+book_time[2]+""+book_time[3]+"/"+book_time[4]+""+book_time[5]+""+book_time[6]+""+book_time[7],
             time:book_time[8]+""+book_time[9]+":"+book_time[10]+""+book_time[11]+":"+book_time[12]+""+book_time[13]  ,
             patientusrnm :snapshot.val()["basicinfo"]["username"],
@@ -47,7 +49,7 @@ var cb=firebase.database();
             patientcontnm: snapshot.val()["basicinfo"]["ContactNumber"]
         }).then(()=>{
           alert("Booked Successfully");
-          cb.ref("critical/").child(critical).remove();
+          db.ref("critical/"+critical).remove();
         }).catch((error)=>
         {
           alert("error",error)
@@ -77,7 +79,7 @@ var cb=firebase.database();
       })
     })
     //console.log(basicInfo)
-      db.ref("crtical/").get().then((snapshot)=>
+      db.ref("critical/").get().then((snapshot)=>
       {
         // console.log(data.key)
         //   console.log(data.val())

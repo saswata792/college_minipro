@@ -2,60 +2,57 @@ import React from "react";
 import firebase from "./fire.js";
 var db=firebase.database();
 function Book(){
-    let admit=[];
-    let cover=[];
+    
     function Booked()
     {
       
       db.ref("admin/").get().then((snapshot)=>
       {
+        let admit=[];
+        let cover=[];
         Object.keys(snapshot.val()).forEach(data=>{
             admit.push(snapshot.val()[data])
         })
-    
-      })
-      let content=``;
-      console.log(admit);
-      admit.forEach((index)=>
-      {
-          index.forEach((dat)=>{
-            cover.push(dat)
-          })
-          
-      })
+        let content=``;
+        console.log("Admit")
+        console.log(admit)
+        admit.forEach((index)=>
+        {
+          console.log(index)
+            Object.keys(index).forEach((dat)=>{
+              cover.push(index[dat])
+            })
+            
+        })
+        console.log("Cover")
       console.log(cover)
-    //   admit.map((index)=>
-    //   (   
-    //     index.map((dat)=>
-    //     {
-    //         console.log(index.dat["username"])
-    //       (index.dat["username"]==='')? 
-    //         `<div class="one">
-    //           <label htmlFor="usrnm">Username</label>
-    //             <div>${index.dat["Bookedby"]}</div>
-    //           <label htmlFor="spotwo">SPO2</label>
-    //           <div>${index.dat["spotwo"]}</div>
-    //           <label htmlFor="heartrate">HEARTRATE</label>
-    //           <div>${index.dat["heartrate"]}</div>
-    //           <label htmlFor="time">TIME</label>
-    //           <div>${index.dat["time"]}</div>
-    //           <label htmlFor="time">TIME</label>
-    //           <div>${index.dat["date"]}</div>
-              
-              
-    //           </div>`:``
-          
-        
-    //         // console.log(childSnap.key)
-    //         // console.log(childSnap.val())
-    //       }).forEach(element=>{
-    //         content += element
-    //       })
-    //     ))
-
-
-        console.log(content);
-        document.getElementById("bookpat").innerHTML=content;
+      cover.map((dat)=>
+        (
+              (dat["username"]===undefined)? 
+            `<div class="one">
+             <tr> <label htmlFor="usrnm">Username</label>
+               <td> <div>${dat["Bookedby"]}</div></td>
+            </tr>
+             <tr> <label htmlFor="spotwo">SPO2</label>
+           <td>   <div>${dat["spotwo"]}</div></td>
+            </tr>
+             <tr> <label htmlFor="heartrate">HEARTRATE</label>
+              <td><div>${dat["heartrate"]}</div></td>
+            </tr>
+             <tr> <label htmlFor="time">TIME</label>
+          <td>    <div>${dat["time"]}</div></td>        
+              </tr>     
+          <tr> <label htmlFor="time">TIME</label>
+          <td>    <div>${dat["date"]}</div></td>              
+            </tr>   
+              </div>`:``
+            // console.log(childSnap.key)
+            // console.log(childSnap.val())
+          )).forEach(element=>{
+            content += element
+          })
+       document.getElementById("bookpat").innerHTML=content;
+      })
     }     
    
     
@@ -75,7 +72,7 @@ function Book(){
   return(
       <React.Fragment>
           
-          <button onClick={Booked}>Click to show the ones Serviced/Yet to Service</button>
+          <button onClick={Booked}>Click  to show the ones Serviced/Yet to Service</button>
           <div id="bookpat">
           
           </div>

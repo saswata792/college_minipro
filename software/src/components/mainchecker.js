@@ -4,19 +4,19 @@ class Mainchecker
     constructor()
     {
 
-        this.profile=0;
+        this.profile="";
     }
     setProfile(check)
     {
         
         this.profile=check;
-        alert(this.profile);
+        console.log(this.profile);
     }
     getProfile()
     {
         return(
             this.profile
-        );
+        )
     }
 }
 export default new Mainchecker(); //class k object kore dewa holo

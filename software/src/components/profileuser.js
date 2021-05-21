@@ -8,7 +8,7 @@ function Profileuser()
 {   
     var db=firebase.database();
     var check=Mainchecker.getProfile();
-    console.log(check)
+    
     // const [inst,setinst]=React.useState([])
 	// React.useEffect(()=>
 	// 	{	
@@ -43,10 +43,8 @@ function Profileuser()
         if(Mainchecker.getProfile()[str].password===prpass)
         {
             var check=Mainchecker.getProfile();
-            console.log(check)
-            console.log(check[str].password)
-            console.log(check[str].username)
-            db.ref("user/").child(check[str].username).child(str).update({
+            
+            db.ref("user/").child(check[str]["username"]).child(str).update({
                 password:nwpass
             })
             alert("password updated");
@@ -88,17 +86,17 @@ function Profileuser()
             
             <label htmlFor="username">Username</label>
          
-            <input  id="username" className="username-two" value={Mainchecker.getProfile()[str].username}></input>
+            <div  id="username" className="username-two">{check[str]["username"]}</div>
             <label htmlFor="name">Name</label>
-            <input id="name" className="name-two" value={Mainchecker.getProfile()[str].name}></input> 
+            <div id="name" className="name-two" >{check[str]["name"]}</div> "
             <label htmlFor="email">Email</label>
-            <input id="email" className="email-two" value={Mainchecker.getProfile()[str].email}></input>
+            <div id="email" className="email-two" >{check[str]["email"]}</div>
             <label htmlFor="dob">DateofBirth</label>
-            <input id="dob" className="dob-two" value={Mainchecker.getProfile()[str].DateofBirth}></input>
+            <div id="dob" className="dob-two" >{check[str]["DateofBirth"]}</div>
             <label htmlFor="address">Address</label>
-            <input  id="address" className="address-two" value={Mainchecker.getProfile()[str].Address}></input>
+            <div  id="address" className="address-two">{check[str]["Address"]}</div>
             <label htmlFor="contactnm">Contact Number</label>
-            <input id="contactnm" className="contactnm-two" value={Mainchecker.getProfile()[str].ContactNumber}></input> 
+            <div id="contactnm" className="contactnm-two" >{check[str]["ContactNumber"]}</div> 
             <button onClick={passchang}>Change Password</button>
             <div id="passchange" style={{display:"none"}}>
                     <label htmlFor="password-two">Previous Password</label>

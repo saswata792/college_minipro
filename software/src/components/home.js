@@ -33,17 +33,18 @@ function Header()
 	    const pass=document.getElementById("password").value;
 	    //const usrnm_array=usrnm.split("@");
 		
+		
+		
 		var str="basicinfo";
 		const usrnm_array=usrnm.split("@");
 		if(usrnm_array[1]==="user")
 		{
-
-			db.ref("user/").child(usrnm).get().then((snapshot) => {
-				
-				if(snapshot.val()[str].username===usrnm && snapshot.val()[str].password===pass)
+			
+			db.ref("user/").child(usrnm).get().then((snapshot)=>{
+				if(snapshot.val()[str]["username"]===usrnm && snapshot.val()[str]["password"]===pass)
 				{
-					alert(snapshot.val()[str].username);
-					Mainchecker.setProfile(usrnm);
+					
+					Mainchecker.setProfile(snapshot.val());
 					
 					history.push('/measure');
 					
@@ -54,19 +55,23 @@ function Header()
 				}
 				else
 					alert("your account doesn't exist"); 
-			
 			})
+			
+				
+				
+			
+			
 		}
 		if(usrnm_array[1]==="admin")
 		{
-
-			db.ref("admin/").child(usrnm).get().then((snapshot) => {
-				
-				if(snapshot.val()[str].username===usrnm && snapshot.val()[str].password===pass)
+			
+			db.ref("admin/").child(usrnm).get().then((snapshot)=>{
+				if(snapshot.val()[str]["username"]===usrnm && snapshot.val()[str]["password"]===pass)
 				{
 					
-					Mainchecker.setProfile(usrnm);
-					alert(snapshot.val()[str].username);
+					
+					Mainchecker.setProfile(snapshot.val());
+					
 					history.push('/critical');
 					
 				}
@@ -77,7 +82,11 @@ function Header()
 				else
 					alert("your account doesn't exist"); 
 			
+			
 			})
+			
+				
+				
 		}
 		
 		
