@@ -1,67 +1,140 @@
-@media only screen and (max-width: 600px) {
-    /* For tablets: */
-    
-    input{
-        display:block;
-
-    }
-    
-  }
-
 button{
-    display: block;
-    text-align: center;
-    
-    position: relative;
-    top: 50%;
-    left:50%;
-    margin-top: 20px;
-    transform: translate(-50%,-50%);
+  display: block;
+  background-color:transparent;
+  border-radius: 5px;
+  text-align: center;
   }
-
-
-  @media only screen and (max-width: 1000px) {
-    /* For desktop: */
-    input{
-        display: block;
-    }  
-    
-  } 
 
 
 .email-two{
-    text-align: center;
-    width: 60%;
-    position: relative;
-    top: 50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    background-color: rgb(179, 225, 241);
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  width: 20%;
+  position: relative;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  background-color:aliceblue;
 }
 .dob-two{
-  text-align: center;
-  width: 60%;
-  position: relative;
-  top: 70%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  background-color: rgb(179, 225, 241);
+text-align: center;
+color: black;
+font-weight: bold;
+width: 20%;
+position: relative;
+top: 70%;
+left:50%;
+transform: translate(-50%,-50%);
+background-color:aliceblue;
 }
 .email-two{
-  text-align: center;
-  width: 60%;
-  position: relative;
-  top: 90%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  background-color: rgb(179, 225, 241);
+text-align: center;
+color: black;
+font-weight: bold;
+width: 20%;
+position: relative;
+top: 90%;
+left:50%;
+transform: translate(-50%,-50%);
+background-color:aliceblue;
 }
 .username-two{
+text-align: center;
+color: black;
+font-weight: bold;
+width: 20%;
+position: relative;
+top: 100%;
+left:50%;
+transform: translate(-50%,-50%);
+background-color:aliceblue;
+}
+
+.name-two{
   text-align: center;
-  width: 60%;
+  color: black;
+  font-weight: bold;
+  width: 20%;
   position: relative;
   top: 100%;
   left:50%;
   transform: translate(-50%,-50%);
-  background-color: rgb(179, 225, 241);
-}
+  background-color:aliceblue;
+  }
+
+  .address-two{
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    width: 20%;
+    position: relative;
+    top: 100%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background-color:aliceblue;
+    }
+
+    .contactnm-two{
+      text-align: center;
+      color: black;
+      font-weight: bold;
+      width: 20%;
+      position: relative;
+      top: 100%;
+      left:50%;
+      transform: translate(-50%,-50%);
+      background-color:aliceblue;
+      }
+
+
+
+  .main{
+    text-align: center;
+  }
+
+  .header4{
+    text-align: center;
+    background-color: transparent;
+    color:#ffffff;
+  }
+
+  .B10{
+    position: absolute;
+    left:1075px;
+    top:525px;
+  }
+
+  .B11{
+    position: absolute;
+    left:762.5px;
+    top:525px;
+  }
+
+  .B12{
+    position: absolute;
+    left:887.5px;
+    top:525px;
+  }
+
+  .c1{
+    color: black;
+    position:absolute;
+    left:582.5px;
+    top:575px;
+
+  }
+
+  .c2{
+    position:absolute;
+    color: black;
+    left:962.5px;
+    top:575px;
+  }
+
+  .c3{
+    position:absolute;
+    color: black;
+    left:932.5px;
+    top:625px;
+  }

@@ -1,0 +1,55 @@
+.header3 {
+    position: relative;
+    left: 675px;
+   }
+
+.b41{
+    position: absolute;
+    top: 125px;
+    left:1000px;
+}
+
+.b51{
+    position: absolute;
+    top: 125px;
+    left:800px;
+}
+
+.b61{
+    position: absolute;
+    top: 125px;
+    left:900px;
+}
+
+.header2{
+    text-align: center;
+    color: #000000;
+    background-color: aliceblue;
+  }
+
+  button{
+    display: block;
+    background-color:transparent;
+    border-radius: 5px;
+    text-align: center;
+    }
+
+.newone{
+    position: relative;
+    left:200px;
+    top:100px;
+    font-weight: bold;
+    color: black;
+    }
+
+    table,th,td {
+        border: 1px black solid;
+    }
+    table{
+        width: 1000px;
+        background-color: white;
+    }
+
+    .t1{
+        color: white;
+    }

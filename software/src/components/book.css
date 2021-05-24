@@ -1,0 +1,37 @@
+.header7{
+    position: relative;
+    left: 800px;
+
+}
+
+button{
+    display: block;
+    background-color: transparent;
+    border-radius: 5px;
+    text-align: center;
+    }
+.t1{
+    color: white;
+}
+
+table,th,td {
+	border: 1px black solid;
+}
+table{
+    width: 1000px;
+    background-color: white;
+}
+
+.one
+{
+    position: relative;
+    left: 200px;
+    top:25px;
+    color: black;
+    font-weight: bold;
+}
+
+.by{
+    position: relative;
+    left: 887.5px;
+}

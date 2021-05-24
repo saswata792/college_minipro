@@ -99,20 +99,21 @@ function Header()
 	}	
 		return(
 			<React.Fragment>
+
+				<div class="header">
+            <h1>USER/ADMIN SIGN IN</h1>
+            </div> 
+
 			<div class="signin">
-			<h1> Signin</h1>
-			
-				<label htmlFor="username" >Username</label>
+				<label htmlFor="username" ><b>USERNAME</b></label>
 				<input type="text" className="username-one" id="username" required></input>
-				<label htmlFor="password">Password</label>
+				<label htmlFor="password"><b>PASSWORD</b></label>
 				<input type="password" className="password-one" id="password" required></input>
-				<button id="signin" onClick={checkdata}>Signin</button>	
-                
-			
-			
-			<button  id="signup" onClick={signupclick}>Signup</button>
-			 <button onClick={booked}>Booked</button> 
-			</div>
+				<div class="b1"><button id="signin" onClick={checkdata}><b>SIGN IN</b></button></div>	
+                <div class="b2"><button  id="signup" onClick={signupclick}><b>SIGN UP</b></button></div>
+			    <div class="b3"><button onClick={booked}><b>BOOKED</b></button></div>
+				</div>
+
 			</React.Fragment>
 
 

@@ -139,26 +139,39 @@ function Signup()
 		return(
 			<React.Fragment>
 			<div className="signup">
-			<h1> Signup</h1>
-			
-				<label htmlFor="username" >Username</label>
-				<input type="text" className="username" id="username" required></input>
-				<br></br>
-				<label htmlFor="password">Password</label>
-                <input type="password" className="password" id="password" required></input>
-				<label htmlFor="nameus">Full name</label>
-				<input id="nameus" className="nameus" required></input>
-                <label htmlFor="email">Email</label>
-                <input type="email" className="email" id="email" required></input>
-                <label htmlFor="dob">DOB</label>
-                <input type="date" className="dob"id="dob" required></input>
-				<label htmlFor="address">Address</label>
-				<input type="text" className="address" id="address"></input>
-				<label htmlFor="contnm">Contact Number</label>
-				<input type="number" id="contnm" className="contnm"></input>
-                <button onClick={store}>Signups</button>
-			
+				<div class="head">
+			<h1>SIGN UP</h1>
 			</div>
+				<div class name="main">
+
+				<div class="usernamel"><label htmlFor="username" ><b>USERNAME</b></label></div>
+				<input type="text" className="username" id="username" required></input>
+
+				<div class="passwordl"><label htmlFor="password"><b>PASSWORD</b></label></div>
+				<input type="password" className="password" id="password" required></input>
+
+				<div class="nameusl"><label htmlFor="nameus"><b>FULL NAME</b></label></div>
+				<input id="nameus" className="nameus" required></input>
+
+                <div class="emaill"><label htmlFor="email"><b>EMAIL</b></label></div>
+				<input type="email" className="email" id="email" required></input>
+
+                <div class="dobl"><label htmlFor="dob"><b>DATE OF BIRTH</b></label></div
+				><input type="date" className="dob"id="dob" required></input>
+
+				<div class="addressl"><label htmlFor="address"><b>ADDRESS</b></label></div>
+				<input type="text" className="address" id="address"></input>
+
+				<div class="contnml"><label htmlFor="contnm"><b>CONTACT NUMBER</b></label></div>
+				<input type="number" id="contnm" className="contnm"></input>
+
+				<div class="b20"><button onClick={store}><b>SIGN UP</b></button></div>
+
+				</div>
+
+				</div>
+
+				
 			</React.Fragment>
 
 

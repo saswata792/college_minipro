@@ -1,5 +1,5 @@
 import React from "react";
-
+import './profileadmin.css';
 
 import Mainchecker from "./mainchecker.js";
 import { useHistory } from "react-router-dom";
@@ -89,35 +89,53 @@ function Profileadmin()
     //Mainchecker.getProfile().str.username
     return(
     <React.Fragment>
+
+<div class="header4">
+            <h1>ADMIN PROFILE</h1>
+            </div> 
         
-        <button id="logout" onClick={logout}>Logout</button>
-        <button id="measure" onClick={critical}>Critical</button>
-         <div id="profile">
-            
-            <label htmlFor="username">Username</label>
-         
-            <div  id="username" className="username-two" >{check[str]["username"]}</div>
-            <label htmlFor="name">Name</label>
-            <div id="name" className="name-two" >{check[str]["name"]}</div> 
-            <label htmlFor="email">Email</label>
-            <div id="email" className="email-two">{check[str]["email"]}</div>
-            <label htmlFor="dob">DateofBirth</label>
-            <div id="dob" className="dob-two">{check[str]["DateofBirth"]}</div>
-            <label htmlFor="address">Address</label>
-            <div  id="address" className="address-two">{check[str]["Address"]}</div>
-            <label htmlFor="contactnm">Contact Number</label>
-            <div id="contactnm" className="contactnm-two" >{check[str]["ContactNumber"]}</div> 
-            <button onClick={passchang}>Change Password</button>
-            <div id="passchange" style={{display:"none"}}>
-                    <label htmlFor="password-two">Previous Password</label>
-                    <input id="password-two" className="password-two" onChange={passchange}></input>
-                    <label htmlFor="nwpassword-two">New Password</label>
-                    <input id="nwpassword-two" className="nwpassword-two" onChange={passchange}></input>
-                    <button id="save" style={{display:"none"}} onClick={passchanged}>Save</button>
-            </div>
+        <div class="B10"><button id="logout" onClick={logout}><b>LOGOUT</b></button></div>
+        <div class="B11"><button id="measure" onClick={critical}><b>CRITICAL</b></button></div>
         
-            
-         </div>
+        <div id="profile">
+
+<div class="main">
+
+<p><label htmlFor="username"><b>USERNAME</b></label></p>
+<div  id="username" className="username-two">{check[str]["username"]}</div>
+<p><label htmlFor="name"><b>NAME</b></label></p>
+<div id="name" className="name-two" >{check[str]["name"]}</div>
+<p><label htmlFor="email"><b>EMAIL</b></label></p>
+<div id="email" className="email-two" >{check[str]["email"]}</div>
+<p><label htmlFor="dob"><b>DATE OF BIRTH</b></label></p>
+<div id="dob" className="dob-two" >{check[str]["DateofBirth"]}</div>
+<p><label htmlFor="address"><b>ADDRESS</b></label></p>
+<div  id="address" className="address-two">{check[str]["Address"]}</div>
+<p><label htmlFor="contactnm"><b>CONTACT NUMBER</b></label></p>
+<div id="contactnm" className="contactnm-two" >{check[str]["ContactNumber"]}</div> 
+
+
+<div class="B12"><button onClick={passchang}><b>CHANGE PASSWORD</b></button></div>
+
+</div>
+
+
+<div id="passchange" style={{display:"none"}}>
+        <div class="c1">
+        <label htmlFor="password-two"><b>PREVIOUS PASSWORD   </b></label>
+        <input id="password-two" className="password-two" onChange={passchange}></input>
+        </div>
+        <div class="c2">
+        <label htmlFor="nwpassword-two"><b>NEW PASSWORD   </b></label>
+        <input id="nwpassword-two" className="nwpassword-two" onChange={passchange}></input>
+        </div>
+        <div class="c3">
+        <button id="save" style={{display:"none"}} onClick={passchanged}><b>SAVE</b></button>
+        </div>
+</div> 
+
+
+</div>
     </React.Fragment>
    
     )

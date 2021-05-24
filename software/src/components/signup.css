@@ -1,74 +1,109 @@
-@media only screen and (max-width: 600px) {
-    /* For tablets: */
-    
-    .signup{
-        display:block;
-
-    }
-    
-  }
-
 button{
-    display: block;
-    text-align: center;
-    
-    position: relative;
-    top: 50%;
-    left:50%;
-    margin-top: 20px;
-    transform: translate(-50%,-50%);
+  display: block;
+  background-color:transparent;
+  border-radius: 5px;
+  text-align: center;
   }
-.username{
-    display: block;
-    text-align: center;
-    position: relative;
-    top: 50%;
-    left:50%;
-    
-    transform: translate(-50%,-50%);
-}
-.password{
-  display: block;
-  text-align: center;
-  position: relative;
-  top: 60%;
-  left:50%;
-  
-  transform: translate(-50%,-50%);
-}
-.email{
-  display: block;
-  text-align: center;
-  position: relative;
-  top: 70%;
-  left:50%;
- 
-  transform: translate(-50%,-50%);
-}
-.dob{
-  display: block;
-  text-align: center;
-  position: relative;
-  top: 90%;
-  left:50%;
-  
-  transform: translate(-50%,-50%);
-}
 
-  @media only screen and (max-width: 1000px) {
-    /* For desktop: */
-    .signup{
-        display: block;
-    }  
-    
-  } 
-
-.signup{
+  .head{
+    position:absolute;
+    left:900px;
+    top:125px;
     text-align: center;
-    width: 60%;
-    position: absolute;
-    top: 20%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    background-color: rgb(179, 225, 241);
-}
+    background-color: transparent;
+    color:#ffffff;
+  }
+
+  .main{
+    text-align: center;
+  }
+
+  .b20{
+    position:absolute;
+    left:900px;
+    top:600px;
+  }
+
+    .username{
+      position:absolute;
+      left:900px;
+      top: 225px;
+    }
+
+    .usernamel{
+      position:absolute;
+      left:800px;
+      top:225px;
+    }
+
+    .password{
+      position:absolute;
+      left:900px;
+      top: 275px;
+    }
+
+    .passwordl{
+      position:absolute;
+      left:800px;
+      top:275px;
+    }
+
+    .nameus{
+      position:absolute;
+      left:900px;
+      top: 325px;
+    }
+
+    .nameusl{
+      position:absolute;
+      left:800px;
+      top:325px;
+    }
+
+    .email{
+      position:absolute;
+      left:900px;
+      top: 375px;
+    }
+
+    .emaill{
+      position:absolute;
+      left:800px;
+      top:375px;
+    }
+
+    .dob{
+      position:absolute;
+      left:932.5px;
+      top: 425px;
+    }
+
+    .dobl{
+      position:absolute;
+      left:800px;
+      top:425px;
+    }
+
+    .address{
+      position:absolute;
+      left:900px;
+      top: 475px;
+    }
+
+    .addressl{
+      position:absolute;
+      left:800px;
+      top:475px;
+    }
+
+    .contnm{
+      position:absolute;
+      left:900px;
+      top: 525px;
+    }
+
+    .contnml{
+      position:absolute;
+      left:737.5px;
+      top:525px;
+    }

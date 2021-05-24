@@ -1,0 +1,56 @@
+.header8{
+    position: relative;
+    left: 675px;
+
+}
+
+button{
+    display: block;
+    background-color: transparent;
+    border-radius: 5px;
+    text-align: center;
+    }
+
+.b4{
+    position: absolute;
+    top: 125px;
+    left:1000px;
+}
+
+.b5{
+    position: absolute;
+    top: 125px;
+    left:800px;
+}
+
+.b6{
+    position: absolute;
+    top: 125px;
+    left:900px;
+}
+.t1{
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+table,th,td {
+	border: 1px black solid;
+}
+table{
+    width: 1000px;
+    background-color: white;
+}
+
+.newthree{
+    position: relative;
+    left:200px;
+    top:50px;
+    font-weight: bold;
+    color: black;
+}
+.butt{
+    position: relative;
+    left: 1050px;
+    top: 37.5px;
+}
