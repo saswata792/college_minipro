@@ -2,46 +2,43 @@
 #include<EEPROM.h>
 #include <WebServer.h>
 #include<FirebaseESP32.h>
-#include "webpaged.h";
-#include "sewebpaged.h";
-#include "register.h";
-#include "router.h";
-#include "profile.h";
-//#include <rom/rtc.h>
+#include "./webpaged.h";
+#include "./sewebpaged.h";
+#include "./register.h";
+#include "./router.h";
+#include "./profile.h";
+#include <rom/rtc.h>
 /* Put your SSID & Password */
 const char* ssid = "ESP32";  // Enter SSID here
 const char* password = "12345678";  //Enter Password here
-#include "DHT.h"
-#define DHTPIN 2     
-#define DHTTYPE DHT11
-WiFiUDP ntpUDP;
-//NTPClient timeClient(ntpUDP, "pool.ntp.org");
-#define FIREBASE_HOST "esp32-82eba-default-rtdb.firebaseio.com"                     //Your Firebase Project URL goes here without "http:" , "\" and "/"
-#define FIREBASE_AUTH "VCyvBPExh4qBOfKIefGzCEg8UtTzYlYW5UQMFnAW" //Your Firebase Database Secret goes here
-#include "TimeLib.h"
 const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 19800;
 const int   daylightOffset_sec = 0;
-DHT dht(DHTPIN, DHTTYPE);
-//#define WIFI_SSID "Xiaomi_A40B"                                               //WiFi SSID to which you want NodeMCU to connect
-//#define WIFI_PASSWORD "sps9804814979"                                      //Password of your wifi network 
+
+//#include "DHT.h"
+#define DHTPIN 2    
+#define DHTTYPE DHT11
+#define FIREBASE_HOST "esp32-82eba-default-rtdb.firebaseio.com"                     //Your Firebase Project URL goes here without "http:" , "\" and "/"
+#define FIREBASE_AUTH "VCyvBPExh4qBOfKIefGzCEg8UtTzYlYW5UQMFnAW" //Your Firebase Database Secret goes here
+#include "TimeLib.h"
+
 FirebaseData fireStatus;
 String rusername;
 String rpassword;
 String uusername;
 String upassword;
 //extern "C" {
-//#include <user_interface.h>
+////#include <user_interface.h>
 //}
 typedef struct
 {
-  const char* rusername;
-  const char* rpassword;
+  char* rusername;
+  char* rpassword;
 }route;
 typedef struct
 {
-  String uusername;
-  String upassword;
+  char* uusername;
+  char* upassword;
 }user;
 
 user usdetails;
@@ -54,85 +51,92 @@ IPAddress subnet(255,255,255,0);
 WebServer server(80);
 
 //FirebaseData fireStatus;
-void setup() 
+void setup()
 {
   Serial.begin(74880);
-  //  timeClient.begin();
-  //String time=printLocalTime();
-  //timeClient.setTimeOffset(19800);
-//  rst_info *resetInfo;
-//  resetInfo=ESP.getResetInfoPtr();
-  WiFi.softAP(ssid, password);
-  WiFi.softAPConfig(local_ip, gateway, subnet);
-  delay(100);
-  server.begin();
-  
-  
-  //init and get the time
-  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-//  Serial.println(get_reset_reason(0));
-//  if(get_reset_reason(0)==6)
-//  {
-//    server.on("/",change);
-//    server.on("/changepro",readpro);
-//    server.on("/changerout",readrout);
-//    //server.on("/router",readUserData);
-//    server.on("/profileup",successfulprofile);
-//    server.on("/routerup",successfulrouter);
-//  }
- 
-  server.on("/",webpage);
-  server.on("/router",readData);
-  route rout;
-  EEPROM.get(0,rout);
-  if(rout.rusername!="" && rout.rpassword!="")
+  route users;
+  Serial.println("\nRESET REASON:");
+  Serial.println(rtc_get_reset_reason(0));
+  if(rtc_get_reset_reason(0)==1)
   {
-    station();
+    WiFi.softAP(ssid, password);
+    WiFi.softAPConfig(local_ip, gateway, subnet);
+    delay(100);
+    server.begin();
+    server.on("/",change);
+    server.on("/changepro",readpro);
+    server.on("/changerout",readrout);
+    //server.on("/router",readUserData);
+    server.on("/profileup",successfulprofile);
+    server.on("/routerup",successfulrouter);
+  }
+  else{
+    EEPROM.begin(512);
+    EEPROM.get(100,users);
+    if(strcmp(users.rusername,"")==0 || strcmp(users.rpassword,"")==0){
+      WiFi.softAP(ssid, password);
+      WiFi.softAPConfig(local_ip, gateway, subnet);
+      delay(100);
+      server.begin();
+      server.on("/",webpage);
+      server.on("/router",readData);
+      EEPROM.end();
+    }
+    else
+    {
+        station();
+        //configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+    }
   }
 }
-void printLocalTime()
-{
-    struct tm timeinfo;
-    
-    Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
-    
-}
+//String printLocalTime()
+//{
+//    struct tm timeinfo;
+//    
+//    Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
+//    return timeinfo;
+//}
 void station()
 {
-  route rout;
-  EEPROM.get(0,rout);
-  WiFi.begin(rout.rusername, rout.rpassword);
+  route users;
+  EEPROM.begin(512);
+  EEPROM.get(100,users);
+  WiFi.begin(users.rusername, users.rpassword);
   while (WiFi.status() != WL_CONNECTED) {
       delay(500);
       Serial.print(".");
   }
   Serial.println(" CONNECTED");
+  EEPROM.end();
 }    
  
-//void firebase()
-//{
-//  user users;
+void firebase()
+{
+  user users;
 //  String times=printLocalTime();
 //  float h = dht.readHumidity();
 //  float t = dht.readTemperature();
-////  Firebase.begin(FIREBASE_HOST,FIREBASE_AUTH);
-//  EEPROM.get(100,users);
-//  String usrnm=users.uusername;
-//  String pass=users.upassword;
-//  Firebase.setFloat(fireStatus,"user/usrnm/times/humidity",h);
-//  Firebase.setFloat(fireStatus,"user/usrnm/times/temperature",t);
-// 
-//}
+  EEPROM.begin(512);
+  Firebase.begin(FIREBASE_HOST,FIREBASE_AUTH);
+  EEPROM.get(100,users);
+  String usrnm=users.uusername;
+  String pass=users.upassword;
+  Firebase.setFloat(fireStatus,"user/usrnm/times/humidity",0.09);
+  Firebase.setFloat(fireStatus,"user/usrnm/times/temperature",12.4);
+  EEPROM.end();
+}
 
 bool successfulrouter()
-{ 
+{
   route rt;
   EEPROM.begin(512);
   Serial.print("SSID: ");
-  rtdetails.rusername=server.arg("rtusername");
+  String st =server.arg("rtusername");
+  rtdetails.rusername=(char*)&st;
   Serial.println(server.arg("rtusername"));
   Serial.print("Password:");
-  rtdetails.rpassword=server.arg("rtpassword");
+  st=server.arg("rtpassword");
+  rtdetails.rpassword=(char*)&st;
   Serial.println(server.arg("rtpassword"));
   server.send(200,"text/html",registered);
   EEPROM.put(0,rtdetails);
@@ -145,15 +149,17 @@ bool successfulrouter()
 }
 bool successfulprofile()
 {
-  
+ 
   user us;
   EEPROM.begin(512);
   Serial.print("Username: ");
-  usdetails.uusername=server.arg("username");
+  String st=server.arg("rtusername");
+  usdetails.uusername=(char*)&st;
   Serial.println(server.arg("username"));
 
   Serial.print("Password:");
-  usdetails.upassword=server.arg("password");
+  st=server.arg("rtusername");
+  usdetails.upassword=(char*)&st;
   Serial.println(server.arg("password"));
   EEPROM.put(100,usdetails);
   EEPROM.get(100,us);
@@ -163,7 +169,7 @@ bool successfulprofile()
   //firebase();
   EEPROM.end();
   return true;
-  
+ 
 }
 void readpro()
 {
@@ -183,27 +189,31 @@ void webpage(){
 bool readData()
 {
   user us;
-  
+ 
   //String str;
   EEPROM.begin(512);
   if (server.args() == 0)
     return false;  // we could do in the caller an error handling on that
-  rtdetails.rusername=server.arg("rtusername");
+    String st=server.arg("rtusername");
+  rtdetails.rusername=(char*)&st;
   Serial.print("SSID: ");
   Serial.println(rtdetails.rusername);
   Serial.println(server.arg("rtusername"));
-  
+ 
   //Serial.print("httffjkggkgyh:");
   //Serial.println(str);  
   Serial.print("Password:");
-  rtdetails.rpassword=server.arg("rtpassword");
+  String sst = server.arg("rtpassword");
+  rtdetails.rpassword=(char*)&sst;
   Serial.println(server.arg("rtpassword"));
   EEPROM.put(0,rtdetails);
   Serial.print("Username: ");
-  usdetails.uusername=server.arg("username");
+  String ut=server.arg("username");
+  usdetails.uusername=(char*)&ut;
   Serial.println(server.arg("username"));
   Serial.print("Password:");
-  usdetails.upassword=server.arg("password");
+  String upt=server.arg("password");
+  usdetails.upassword=(char*)&upt;
   Serial.println(server.arg("password"));
   EEPROM.put(100,usdetails);
   EEPROM.get(100,us);
@@ -213,13 +223,13 @@ bool readData()
   server.send(200,"text/html",registered);
   EEPROM.end();
   return true;
-  
+ 
 }
 void loop() {
-  server.handleClient();
-  printLocalTime();
-  
+ server.handleClient();
+  //printLocalTime();
+ 
 
-  
-  
+ 
+ 
 }

@@ -34,9 +34,10 @@ var cb=firebase.database();
   }
   function Book(critical)
   {
-        
+        console.log(critical)
+        console.log(critical["spotwo"])
         var book_time=fetchTime();
-        db.ref("user/").child(critical).get().then((snapshot)=>
+        db.ref("user/").child(critical["username"]).get().then((snapshot)=>
         {
          
          var  nm=Mainchecker.getProfile()["basicinfo"]["username"]
@@ -48,15 +49,14 @@ var cb=firebase.database();
             time:book_time[8]+""+book_time[9]+":"+book_time[10]+""+book_time[11]+":"+book_time[12]+""+book_time[13]  ,
             patientusrnm :snapshot.val()["basicinfo"]["username"],
             patientaddr: snapshot.val()["basicinfo"]["Address"],
-            patientcontnm: snapshot.val()["basicinfo"]["ContactNumber"]
+            patientcontnm: snapshot.val()["basicinfo"]["ContactNumber"],
+            spotwo:critical["spotwo"],
+            heartrate:critical["heartrate"]
+           
         }).then(()=>{
           alert("Booked Successfully");
-          db.ref("critical/"+critical).remove();
-        }).catch((error)=>
-        {
-          alert("error",error)
+          db.ref("critical/"+critical["username"]).remove();
         })
-        
       })
   }
   // async function hari()
@@ -149,13 +149,14 @@ var cb=firebase.database();
       document.getElementById("cricpat").innerHTML=content;
      // console.log(content)
     
-      
+    
       Object.keys(val).forEach((data)=>
       {
         
-       
+        
         document.getElementById(val[data]["username"]).addEventListener("click",function(){
-          Book(val[data]["username"]);
+          
+          Book(val[data])
         })
       })
     })
@@ -181,7 +182,7 @@ var cb=firebase.database();
 <div class="header8">
             <h1>YOU HAVE SUCCESSFULLY SIGNED IN</h1>
             </div> 
-            <div class="b4"><button id="logout" onClick={logout}><div class = "t1"><b>LOGOUT</b></div></button></div>
+            <button id="logout" onClick={logout}>LOGOUT</button>
             <div class="b5"> <button id="profile" onClick={profile}><div class = "t1"><b>PROFILE</b></div></button></div>
             <div class="b6"> <button onClick={onDemand}><div class = "t1"><b>CRITICAL</b></div></button></div>
           <div id="cricpat">

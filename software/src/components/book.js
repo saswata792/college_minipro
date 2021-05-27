@@ -1,9 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import './book.css';
 import firebase from "./fire.js";
+
+
 var db=firebase.database();
 function Book(){
-    
+    let history=useHistory()
     function Booked()
     {
       
@@ -15,21 +18,20 @@ function Book(){
             admit.push(snapshot.val()[data])
         })
         let content=``;
-        console.log("Admit")
-        console.log(admit)
+       
         admit.forEach((index)=>
         {
-          console.log(index)
+          
             Object.keys(index).forEach((dat)=>{
               cover.push(index[dat])
             })
             
         })
-        console.log("Cover")
+      
       console.log(cover)
       cover.map((dat)=>
         (
-          console.log(dat)
+            
               (dat["username"]===undefined)? 
             `<div class="one">
 
@@ -82,7 +84,10 @@ function Book(){
  
   //   )
   // }
-  
+  function home(){
+     
+     history.push("/")
+  }
   
   return(
       <React.Fragment>
@@ -90,7 +95,7 @@ function Book(){
 <div class="header7">
 <h1>BOOKED DATABASE</h1>
 </div> 
-          
+          <button  onClick={home}>Home</button>
           <div class="by"><button onClick={Booked}><div class = "t1"><b>CLICK TO CHECK</b></div></button></div>
           <div id="bookpat">
           
