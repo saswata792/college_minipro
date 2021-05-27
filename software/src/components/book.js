@@ -29,6 +29,7 @@ function Book(){
       console.log(cover)
       cover.map((dat)=>
         (
+          console.log(dat)
               (dat["username"]===undefined)? 
             `<div class="one">
 
@@ -38,6 +39,7 @@ function Book(){
 
              <tr> 
              <th><label htmlFor="usrnm">ADMINISTRATOR</label></th>
+             <th><label htmlFor="usrnm">CONTACT NO.</label></th>
              <th><label htmlFor="spotwo">SPO2</label></th>
              <th><label htmlFor="heartrate">HEARTRATE</label></th>
              <th><label htmlFor="date">DATE</label></th>
@@ -46,6 +48,7 @@ function Book(){
 
              <tr>
              <td> <div>${dat["Bookedby"]}</div></td>
+             <td> <div>${dat["ContactNumber"]}</div></td>
              <td><div>${dat["spotwo"]}</div></td>
              <td><div>${dat["heartrate"]}</div></td>
              <td><div>${dat["time"]}</div></td>

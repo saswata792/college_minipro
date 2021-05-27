@@ -16,7 +16,7 @@ var cb=firebase.database();
   }
   function logout()
   {
-      history.push("/");
+      history.push('/');
 
   }
   function fetchTime() {
@@ -40,9 +40,10 @@ var cb=firebase.database();
         {
          
          var  nm=Mainchecker.getProfile()["basicinfo"]["username"]
-        
+         var contactnm=Mainchecker.getProfile()["basicinfo"]["ContactNumber"]
         db.ref("admin/").child(nm).child(book_time).set({
             Bookedby:nm,
+            ContactNumber:contactnm,
             date:book_time[0]+""+book_time[1]+"/"+book_time[2]+""+book_time[3]+"/"+book_time[4]+""+book_time[5]+""+book_time[6]+""+book_time[7],
             time:book_time[8]+""+book_time[9]+":"+book_time[10]+""+book_time[11]+":"+book_time[12]+""+book_time[13]  ,
             patientusrnm :snapshot.val()["basicinfo"]["username"],
@@ -154,8 +155,6 @@ var cb=firebase.database();
         
        
         document.getElementById(val[data]["username"]).addEventListener("click",function(){
-          
-          console.log(val[data]["username"]);
           Book(val[data]["username"]);
         })
       })
