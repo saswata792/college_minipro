@@ -17,7 +17,7 @@ function Book(){
         Object.keys(snapshot.val()).forEach(data=>{
             admit.push(snapshot.val()[data])
         })
-        let content=``;
+        // let content=``;
         console.log("Admit")
         console.log(admit)
         admit.forEach((index)=>
@@ -30,6 +30,20 @@ function Book(){
         })
         
       console.log(cover)
+
+      let content=
+      `
+      <table id=table3>
+      <tr> 
+             <th><label htmlFor="usrnm">ADMINISTRATOR</label></th>
+             <th><label htmlFor="usrnm">CONTACT</label></th>
+             <th><label htmlFor="spotwo">SPO2</label></th>
+             <th><label htmlFor="heartrate">HEARTRATE</label></th>
+             <th><label htmlFor="date">TIME</label></th>
+             <th><label htmlFor="time">DATE</label></th>
+             </tr>
+             
+             </table>`
       cover.map((dat)=>
         (
               (dat["username"]===undefined)? 
@@ -39,14 +53,7 @@ function Book(){
 
             <table>
 
-             <tr> 
-             <th><label htmlFor="usrnm">ADMINISTRATOR</label></th>
-             <th><label htmlFor="usrnm">CONTACT</label></th>
-             <th><label htmlFor="spotwo">SPO2</label></th>
-             <th><label htmlFor="heartrate">HEARTRATE</label></th>
-             <th><label htmlFor="date">DATE</label></th>
-             <th><label htmlFor="time">TIME</label></th>
-             </tr>
+             
 
              <tr>
              <td> <div>${dat["Bookedby"]}</div></td>

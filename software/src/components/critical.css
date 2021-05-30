@@ -1,6 +1,6 @@
 .header8{
     color: rgb(255, 255, 255);
-    position: fixed;
+    position: absolute;
     top:2.5vh;
     left:35vw;
 }
@@ -13,19 +13,19 @@ button{
     }
 
 #logout{
-        position: fixed;
+        position: absolute;
         top: 12.5vh;
         left:57.5vw;
     }
 
 #profile{
-    position: fixed;
+    position: absolute;
     top: 12.5vh;
     left:37.5vw;
 }
 
 .b6{
-    position: fixed;
+    position: absolute;
     top: 12.5vh;
     left:47.5vw;
 }
@@ -61,7 +61,7 @@ th,td {
     .header8{
         text-align: center;
         color: rgb(255, 255, 255);
-        position: fixed;
+        position: absolute;
         top:2.5vh;
         left:22.5vw;
     }
@@ -74,19 +74,19 @@ th,td {
         }
     
     #logout{
-        position: fixed;
+        position: absolute;
         top: 15vh;
         left:67.5vw;
         }
     
     #profile{
-        position: fixed;
+        position: absolute;
         top: 15vh;
         left:22.5vw;
     }
     
     .b6{
-        position: fixed;
+        position: absolute;
         top: 15vh;
         left:45vw;
     }
@@ -119,7 +119,7 @@ th,td {
     .header8{
         color: rgb(255, 255, 255);
         text-align: center;
-        position: fixed;
+        position: absolute;
         top:2.5vh;
         left:2.5vw;
     }
@@ -132,19 +132,19 @@ th,td {
         }
     
     #logout{
-        position: fixed;
+        position: absolute;
         top: 15vh;
         left:80vw;
         }
     
         #profile{
-        position: fixed;
+        position: absolute;
         top: 15vh;
         left:10vw;
     }
     
     .b6{
-        position: fixed;
+        position: absolute;
         top: 15vh;
         left:45vw;
     }
