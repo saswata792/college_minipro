@@ -10,7 +10,6 @@ function Header()
 {
 	let  history= useHistory();
 	
-	
 	function signupclick()
 	{
 		alert("Admin:username@admin,User:username@user");
@@ -27,60 +26,63 @@ function Header()
 		
 		var str="basicinfo";
 		const usrnm_array=usrnm.split("@");
-		if(usrnm_array[1]==="user")
-		{
-			
-			db.ref("user/").child(usrnm).get().then((snapshot)=>{
-				if(snapshot.val()[str]["username"]===usrnm && snapshot.val()[str]["password"]===pass)
-				{
+			if(usrnm_array[1]==="user")
+			{
+				
+				db.ref("user/").child(usrnm).get().then((snapshot)=>{
+					if(snapshot.val()!=null){
+						if(snapshot.val()[str]["username"]===usrnm && snapshot.val()[str]["password"]===pass)
+						{
+							
+							Mainchecker.setProfile(snapshot.val());
+							
+							history.push('/measure');
+							
+						}
+						else if(snapshot.val()[str].password!==pass)
+						{
+							alert("wrong password,please check again");
+						}
+						else
+							alert("your account doesn't exist");
+					}
+					else
+					   alert("your account doesn't exist"); 
+				})
+				
 					
-					Mainchecker.setProfile(snapshot.val());
 					
-					history.push('/measure');
-					
-				}
-				else if(snapshot.val()[str].password!==pass)
-				{
-					alert("wrong password,please check again");
-				}
-				else
-					alert("your account doesn't exist"); 
-			})
-			
 				
 				
-			
-			
-		}
-		if(usrnm_array[1]==="admin")
-		{
-			
-			db.ref("admin/").child(usrnm).get().then((snapshot)=>{
-				if(snapshot.val()[str]["username"]===usrnm && snapshot.val()[str]["password"]===pass)
-				{
-					
-					
-					Mainchecker.setProfile(snapshot.val());
-					
-					history.push('/critical');
-					
-				}
-				else if(snapshot.val()[str].password!==pass)
-				{
-					alert("wrong password,please check again");
-				}
-				else
-					alert("your account doesn't exist"); 
-			
-			
-			})
-			
+			}
+			if(usrnm_array[1]==="admin")
+			{
 				
-				
-		}
-		
-		
-		
+				db.ref("admin/").child(usrnm).get().then((snapshot)=>{
+					if(snapshot.val() != null){
+						if(snapshot.val()[str]["username"]===usrnm && snapshot.val()[str]["password"]===pass)
+						{						
+							Mainchecker.setProfile(snapshot.val());
+							
+							history.push('/critical');
+							
+						}
+						else if(snapshot.val()[str].password!==pass)
+						{
+							alert("wrong password,please check again");
+						}
+						else
+							alert("your account doesn't exist"); 
+					}
+					else{
+						alert("your account doesn't exist")
+
+					}
+				})
+			
+					
+					
+			}
 	}
 	function booked(){
 		history.push("/book");
