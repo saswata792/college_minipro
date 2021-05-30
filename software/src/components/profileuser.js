@@ -9,20 +9,6 @@ function Profileuser()
     var db=firebase.database();
     var check=Mainchecker.getProfile();
     
-    // const [inst,setinst]=React.useState([])
-	// React.useEffect(()=>
-	// 	{	
-	// 		const fetchdata= async()=>{
-	// 			const check=await db.collection('inst').get()
-	// 			setinst(check.docs.map(doc=>doc.data()))
-	// 		}
-	// 		fetchdata()
-	// 	},[]) 
-    // function moresubject()
-    // {
-    //     const sub=document.getElementById("subjectmore");
-    //     sub.style.display="block";
-    // }
     function passchang()
     {
         
@@ -66,56 +52,44 @@ function Profileuser()
        
 
         history.push("/");
-        // document.getElementById("username").value="";
-		// document.getElementById("password").value="";
-		// document.getElementById("email").value="";
-		// document.getElementById("dob").value="";
-		// document.getElementById("address").value="";
-		// document.getElementById("contnm").value="";
-		// document.getElementById("nameus").value="";
         
 
     }
-    var str="basicinfo";//Mainchecker.getProfile().str.username
+    var str="basicinfo";
     return(
     <React.Fragment>
 
-<div class="header4">
+<div class="head200">
             <h1>USER PROFILE</h1>
             </div> 
         
-        <div class="B10"><button id="logout" onClick={logout}><b>LOGOUT</b></button></div>
-        <div class="B11"><button id="measure" onClick={measure}><b>MEASURE</b></button></div>
-         <div id="profile">
-
-            <div class="main">
-            
-            <p><label htmlFor="username"><b>USERNAME</b></label></p>
-            <div  id="username" className="username-two">{check[str]["username"]}</div>
-            <p><label htmlFor="name"><b>NAME</b></label></p>
-            <div id="name" className="name-two" >{check[str]["name"]}</div>
-            <p><label htmlFor="email"><b>EMAIL</b></label></p>
-            <div id="email" className="email-two" >{check[str]["email"]}</div>
-            <p><label htmlFor="dob"><b>DATE OF BIRTH</b></label></p>
-            <div id="dob" className="dob-two" >{check[str]["DateofBirth"]}</div>
-            <p><label htmlFor="address"><b>ADDRESS</b></label></p>
-            <div  id="address" className="address-two">{check[str]["Address"]}</div>
-            <p><label htmlFor="contactnm"><b>CONTACT NUMBER</b></label></p>
-            <div id="contactnm" className="contactnm-two" >{check[str]["ContactNumber"]}</div> 
+        <button id="logout3" onClick={logout}><b>LOGOUT</b></button>
+        <button id="measure" onClick={measure}><b>MEASURE</b></button>
+         <div id="profileuser">
+         <div class="username-one"> <label htmlFor="username"><b>USERNAME</b></label></div>
+            <div class="username-two">{check[str]["username"]}</div>
+            <div class="name-one" >  <label htmlFor="name"><b>NAME</b></label></div>
+            <div class="name-two" >{check[str]["name"]}</div>
+            <div class="email-one" > <label htmlFor="email"><b>EMAIL</b></label></div>
+            <div class="email-two" >{check[str]["email"]}</div>
+            <div class="dob-one" >  <label htmlFor="dob"><b>DOB</b></label></div>
+            <div class="dob-two" >{check[str]["DateofBirth"]}</div>
+            <div class="address-one">  <label htmlFor="address"><b>ADDRESS</b></label></div>
+            <div class="address-two">{check[str]["Address"]}</div>
+            <div class="contactnm-one" ><label htmlFor="contactnm"><b>CONTACT NO</b></label></div>
+            <div class="contactnm-two" >{check[str]["ContactNumber"]}</div> 
 
 
-          <div class="B12"><button onClick={passchang}><b>CHANGE PASSWORD</b></button></div>
-
-            </div>
+          <button id ="change2" onClick={passchang}><b>CHANGE PASSWORD</b></button>
 
 
             <div id="passchange" style={{display:"none"}}>
                     <div class="c1">
-                    <label htmlFor="password-two"><b>PREVIOUS PASSWORD   </b></label>
+                    <label htmlFor="password-two"><div class="t100"><b>PREVIOUS PASSWORD   </b></div></label>
                     <input id="password-two" className="password-two" onChange={passchange}></input>
                     </div>
                     <div class="c2">
-                    <label htmlFor="nwpassword-two"><b>NEW PASSWORD   </b></label>
+                    <label htmlFor="nwpassword-two"><div class="t100"><b>NEW PASSWORD   </b></div></label>
                     <input id="nwpassword-two" className="nwpassword-two" onChange={passchange}></input>
                     </div>
                     <div class="c3">

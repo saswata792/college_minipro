@@ -1,12 +1,12 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import './book.css';
 import firebase from "./fire.js";
-
-
+import {
+  useHistory
+} from 'react-router-dom'
 var db=firebase.database();
 function Book(){
-    let history=useHistory()
+  let history=useHistory() 
     function Booked()
     {
       
@@ -18,30 +18,30 @@ function Book(){
             admit.push(snapshot.val()[data])
         })
         let content=``;
-       
+        console.log("Admit")
+        console.log(admit)
         admit.forEach((index)=>
         {
-          
+          console.log(index)
             Object.keys(index).forEach((dat)=>{
               cover.push(index[dat])
             })
             
         })
-      
+        
       console.log(cover)
       cover.map((dat)=>
         (
-            
               (dat["username"]===undefined)? 
             `<div class="one">
 
-            <div class="one">
+            <div class="twoone">
 
             <table>
 
              <tr> 
              <th><label htmlFor="usrnm">ADMINISTRATOR</label></th>
-             <th><label htmlFor="usrnm">CONTACT NO.</label></th>
+             <th><label htmlFor="usrnm">CONTACT</label></th>
              <th><label htmlFor="spotwo">SPO2</label></th>
              <th><label htmlFor="heartrate">HEARTRATE</label></th>
              <th><label htmlFor="date">DATE</label></th>
@@ -63,8 +63,6 @@ function Book(){
             </div>
 
               </div>`:``
-            // console.log(childSnap.key)
-            // console.log(childSnap.val())
           )).forEach(element=>{
             content += element
           })
@@ -73,20 +71,9 @@ function Book(){
     }     
    
     
-    
-    
-
-
-  // var cricpat=Object.keys(critical).map(critic);
-  // function  critic(data)
-  // {
-  //   return(
- 
-  //   )
-  // }
   function home(){
-     
-     history.push("/")
+    
+    history.push('/')
   }
   
   return(
@@ -95,7 +82,7 @@ function Book(){
 <div class="header7">
 <h1>BOOKED DATABASE</h1>
 </div> 
-          <button  onClick={home}>Home</button>
+          <div class="bz"> <button onClick={home}><div class = "t1"><b>HOME</b></div></button></div>
           <div class="by"><button onClick={Booked}><div class = "t1"><b>CLICK TO CHECK</b></div></button></div>
           <div id="bookpat">
           

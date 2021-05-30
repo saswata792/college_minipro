@@ -10,20 +10,6 @@ function Profileadmin()
     var db=firebase.database();
     var check=Mainchecker.getProfile();
     var str="basicinfo";
-    // const [inst,setinst]=React.useState([])
-	// React.useEffect(()=>
-	// 	{	
-	// 		const fetchdata= async()=>{
-	// 			const check=await db.collection('inst').get()
-	// 			setinst(check.docs.map(doc=>doc.data()))
-	// 		}
-	// 		fetchdata()
-	// 	},[]) 
-    // function moresubject()
-    // {
-    //     const sub=document.getElementById("subjectmore");
-    //     sub.style.display="block";
-    // }
     function passchang()
     {
         
@@ -76,57 +62,44 @@ function Profileadmin()
        
 
         history.push("/");
-        // document.getElementById("username").value="";
-		// document.getElementById("password").value="";
-		// document.getElementById("email").value="";
-		// document.getElementById("dob").value="";
-		// document.getElementById("address").value="";
-		// document.getElementById("contnm").value="";
-		// document.getElementById("nameus").value="";
-        
 
     }
-    //Mainchecker.getProfile().str.username
     return(
     <React.Fragment>
 
-<div class="header4">
+<div class="head100">
             <h1>ADMIN PROFILE</h1>
             </div> 
         
-        <div class="B10"><button id="logout" onClick={logout}><b>LOGOUT</b></button></div>
-        <div class="B11"><button id="measure" onClick={critical}><b>CRITICAL</b></button></div>
+        <button id="logout2" onClick={logout}><b>LOGOUT</b></button>
+        <button id="critical" onClick={critical}><b>CRITICAL</b></button>
         
-        <div id="profile">
+        <div id="profileadmin">
 
-<div class="main">
-
-<p><label htmlFor="username"><b>USERNAME</b></label></p>
-<div  id="username" className="username-two">{check[str]["username"]}</div>
-<p><label htmlFor="name"><b>NAME</b></label></p>
-<div id="name" className="name-two" >{check[str]["name"]}</div>
-<p><label htmlFor="email"><b>EMAIL</b></label></p>
-<div id="email" className="email-two" >{check[str]["email"]}</div>
-<p><label htmlFor="dob"><b>DATE OF BIRTH</b></label></p>
-<div id="dob" className="dob-two" >{check[str]["DateofBirth"]}</div>
-<p><label htmlFor="address"><b>ADDRESS</b></label></p>
-<div  id="address" className="address-two">{check[str]["Address"]}</div>
-<p><label htmlFor="contactnm"><b>CONTACT NUMBER</b></label></p>
-<div id="contactnm" className="contactnm-two" >{check[str]["ContactNumber"]}</div> 
+<div class="username-one"><label htmlFor="username"><b>USERNAME</b></label></div>
+<div class="username-two">{check[str]["username"]}</div>
+<div class="name-one" ><label htmlFor="name"><b>NAME</b></label></div>
+<div class="name-two" >{check[str]["name"]}</div>
+<div class="email-one" ><label htmlFor="email"><b>EMAIL</b></label></div>
+<div class="email-two" >{check[str]["email"]}</div>
+<div class="dob-one" ><label htmlFor="dob"><b>DOB</b></label></div>
+<div class="dob-two" >{check[str]["DateofBirth"]}</div>
+<div class="address-one"><label htmlFor="address"><b>ADDRESS</b></label></div>
+<div class="address-two">{check[str]["Address"]}</div>
+<div class="contactnm-one" ><label htmlFor="contactnm"><b>CONTACT NO</b></label></div>
+<div class="contactnm-two" >{check[str]["ContactNumber"]}</div> 
 
 
-<div class="B12"><button onClick={passchang}><b>CHANGE PASSWORD</b></button></div>
-
-</div>
+<button id ="change" onClick={passchang}><b>CHANGE PASSWORD</b></button>
 
 
 <div id="passchange" style={{display:"none"}}>
         <div class="c1">
-        <label htmlFor="password-two"><b>PREVIOUS PASSWORD   </b></label>
+        <label htmlFor="password-two"><div class="t100"><b>PREVIOUS PASSWORD   </b></div></label>
         <input id="password-two" className="password-two" onChange={passchange}></input>
         </div>
         <div class="c2">
-        <label htmlFor="nwpassword-two"><b>NEW PASSWORD   </b></label>
+        <label htmlFor="nwpassword-two"><div class="t100"><b>NEW PASSWORD   </b></div></label>
         <input id="nwpassword-two" className="nwpassword-two" onChange={passchange}></input>
         </div>
         <div class="c3">

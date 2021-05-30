@@ -2,8 +2,6 @@ import React from 'react';
 import './measure.css';
 import { useHistory } from "react-router-dom";
 import Mainchecker from "./mainchecker.js";
-//import firebase from "./fire.js";
-//var db=firebase.database();
  function Measure()
  {
   let history=useHistory();
@@ -15,11 +13,10 @@ import Mainchecker from "./mainchecker.js";
   function logout()
   {
       history.push("/");
+      console.log("hello");
 
   }
   function measured(){
-    // db.ref("user/").child(Mainchecker.getProfile()).get().then((snapshot)=>
-    // {
       let content=``;
       
       Object.keys(snapshot).map((data)=>
@@ -28,11 +25,9 @@ import Mainchecker from "./mainchecker.js";
        
       (snapshot[data]["username"]===undefined) ?
       
-      `<div class="one">
+      `<div class="newtwo">
 
-      <div class="newone">
-
-      <table>
+      <table id = "table2">
                 
         <tr>
         <th><label htmlFor="spotwo">SPO2 - </label></th>
@@ -49,8 +44,6 @@ import Mainchecker from "./mainchecker.js";
       </tr>
       </br>
       </table>
-
-      </div>
       </div>`: `` 
         
         )).forEach((element)=>
@@ -66,9 +59,9 @@ import Mainchecker from "./mainchecker.js";
             <div class="header3">
             <h1>YOU HAVE SUCCESSFULLY SIGNED IN</h1>
             </div> 
-         <div class="b41"><button id="logout" onClick={logout}><div class = "t1"><b>LOGOUT</b></div></button></div>
-         <div class="b51"><button id="profile" onClick={profile}><div class = "t1"><b>PROFILE</b></div></button></div>
-         <div class="b61"><button onClick={measured}><div class = "t1"><b>MEASURE</b></div></button></div>
+         <button id="logout" onClick={logout}><div class = "t3"><b>LOGOUT</b></div></button>
+         <button id="profile" onClick={profile}><div class = "t3"><b>PROFILE</b></div></button>
+         <div class="b61"><button onClick={measured}><div class = "t3"><b>MEASURE</b></div></button></div>
          <div  id="measure"></div>
       
       </React.Fragment>

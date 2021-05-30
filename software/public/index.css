@@ -4,7 +4,7 @@
 body{
     background-image: url(./new.jpg);
     background-size: 1920px 1000px;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     font-size: 15px;
     color: #ffffff;
     letter-spacing: 1px;
@@ -15,6 +15,52 @@ body{
         color: rgb(0, 0, 0);
         background-color:aliceblue;
         position:fixed;
-        top:935px;
-        left:25%
+        top:95vh;
+        left:25vw;
         }
+
+
+        /* Use a media query to add a breakpoint at 1080px: */
+@media screen and (max-width: 1080px) {
+    body{
+        background-image: url(./new.jpg);
+        background-size: 1920px 1000px;
+        background-repeat: repeat;
+        font-size: 15px;
+        color: #ffffff;
+        letter-spacing: 1px;
+        }
+    
+        footer {
+            text-align: center;
+            color: rgb(0, 0, 0);
+            background-color:aliceblue;
+            position:fixed;
+            top:95vh;
+            left:0vw;
+            }
+
+}
+
+
+/* Use a media query to add a breakpoint at 600px: */
+@media screen and (max-width: 600px) {
+    body{
+        background-image: url(./new.jpg);
+        background-size: 1920px 1000px;
+        background-repeat: repeat;
+        font-size: 15px;
+        color: #ffffff;
+        letter-spacing: 1px;
+        }
+    
+        footer {
+            text-align: center;
+            color: rgb(0, 0, 0);
+            background-color:aliceblue;
+            position:fixed;
+            top:92.5vh;
+            left:0vw;
+            }
+
+}

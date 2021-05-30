@@ -59,50 +59,29 @@ var cb=firebase.database();
         })
       })
   }
-  // async function hari()
-  // {
-  //   var critical=await db.ref("critical/").get();
-  //   //console.log(critical);
-  //   return critical["username"];  
-  // }
-  // var critical=db.ref("critical/").get();
-  
-  // critical.forEach((data)=>{
-  //   console.log(data);
-  // })
   function onDemand()
-  {//.child(val[data]["username"])
+  {
     let basicInfo=[]
-    //let index=0
     cb.ref("user/").get().then((snap)=>{
-      //console.log(snap.val())
       Object.keys(snap.val()).forEach(info=>{
         basicInfo.push(snap.val()[info]["basicinfo"])
       })
     })
-    //console.log(basicInfo)
       db.ref("critical/").get().then((snapshot)=>
       {
-        // console.log(data.key)
-        //   console.log(data.val())
-        //   console.log(data.val()["username"])
-        //   console.log(data.val().username)
         let val=snapshot.val();
         let content=``;
-        //let ino=" ";
         Object.keys(val).map((data)=>
         (
 
             
-            `<div class="one">
-
-            <div class="newthree">
-                <table>
+            `<div class="newthree">
+                <table id="table1">
                 
                   <tr>
                   <th><label htmlFor="usrnm">USERNAME </label></th>
                   <th><label htmlFor="addr">ADDRESS </label></th>
-                  <th><label htmlFor="contactnm">CONTACTNUMBER </label></th>
+                  <th><label htmlFor="contactnm">CONTACT NO </label></th>
                   <th><label htmlFor="dob">DATE OF BIRTH </label></th>
                   <th><label htmlFor="spotwo">SPO2 </label></th>
                   <th><label htmlFor="heartrate">HEARTRATE </label>
@@ -132,22 +111,18 @@ var cb=firebase.database();
                 <td> <div id="time">${val[data]["time"]}</div></td>
                 <td><div id="date">${val[data]["date"]}</div></td>
                 </tr>
-                <div class=butt><button id="${val[data]["username"]}"><div class = "t1">Book</div></button></div>
+                <div class=butt><button id="${val[data]["username"]}"><div class = "t6">Book</div></button></div>
                 
                 </table>
-                </div>
                   </div>`
           
             
-          // console.log(childSnap.key)
-          // console.log(childSnap.val())
           )).forEach(element=>{
             content += element
           })
 
-      
       document.getElementById("cricpat").innerHTML=content;
-     // console.log(content)
+
     
     
       Object.keys(val).forEach((data)=>
@@ -166,14 +141,6 @@ var cb=firebase.database();
       
     
 }
-
-  // var cricpat=Object.keys(critical).map(critic);
-  // function  critic(data)
-  // {
-  //   return(
- 
-  //   )
-  // }
   
   
   return(
@@ -182,9 +149,9 @@ var cb=firebase.database();
 <div class="header8">
             <h1>YOU HAVE SUCCESSFULLY SIGNED IN</h1>
             </div> 
-            <button id="logout" onClick={logout}>LOGOUT</button>
-            <div class="b5"> <button id="profile" onClick={profile}><div class = "t1"><b>PROFILE</b></div></button></div>
-            <div class="b6"> <button onClick={onDemand}><div class = "t1"><b>CRITICAL</b></div></button></div>
+          <button id="logout" onClick={logout}><div class = "t1"><b>LOGOUT</b></div></button>
+          <button id="profile" onClick={profile}><div class = "t1"><b>PROFILE</b></div></button>
+            <div class="b6"><button onClick={onDemand}><div class = "t1"><b>CRITICAL</b></div></button></div>
           <div id="cricpat">
           
           </div>
@@ -195,7 +162,6 @@ var cb=firebase.database();
   )
 
 }
-  //${document.getElementById("book").addEventListener("click",Book(snapshot.val()[data]))}
 export default Critical;
 
 

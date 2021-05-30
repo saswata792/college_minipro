@@ -8,15 +8,6 @@ var db=firebase.database();
 function Signup()
 {
 	let history=useHistory();
-	//const [inst,setinst]=React.useState([])
-	// React.useEffect(()=>
-	// 	{	
-	// 		const fetchdata= async()=>{
-	// 			const check=await db.collection('inst').get()
-	// 			setinst(check.docs.map(doc=>doc.data()))
-	// 		}
-	// 		fetchdata()
-	// 	},[])
 	
 	function store()
 	{
@@ -64,7 +55,6 @@ function Signup()
 							ContactNumber:contnm,
 							Address:addr
 							}}
-								//1alert(usrnm_array[0]);
 								db.ref("user/").child(usrnm).child(str).set(det.basicinfo)
 									.then(()=>{
 										alert("Succesfully Registered");
@@ -116,7 +106,6 @@ function Signup()
 							ContactNumber:contnm,
 							Address:addr
 							}}
-								//1alert(usrnm_array[0]);
 								db.ref("admin/").child(usrnm).child(str).set(det.basicinfo)
 									.then(()=>{
 										alert("Succesfully Registered");
@@ -134,8 +123,13 @@ function Signup()
 		
 		}
 	
-	
+		
 	}
+
+	function home(){
+    
+		history.push('/')
+	  }
 		return(
 			<React.Fragment>
 			<div className="signup">
@@ -144,28 +138,30 @@ function Signup()
 			</div>
 				<div class name="main">
 
-				<div class="usernamel"><label htmlFor="username" ><b>USERNAME</b></label></div>
+				<div class="usernamel"><label htmlFor="username" ><div class = "t20"><b>USERNAME</b></div></label></div>
 				<input type="text" className="username" id="username" required></input>
 
-				<div class="passwordl"><label htmlFor="password"><b>PASSWORD</b></label></div>
+				<div class="passwordl"><label htmlFor="password"><div class = "t20"><b>PASSWORD</b></div></label></div>
 				<input type="password" className="password" id="password" required></input>
 
-				<div class="nameusl"><label htmlFor="nameus"><b>FULL NAME</b></label></div>
+				<div class="nameusl"><label htmlFor="nameus"><div class = "t20"><b>FULL NAME</b></div></label></div>
 				<input id="nameus" className="nameus" required></input>
 
-                <div class="emaill"><label htmlFor="email"><b>EMAIL</b></label></div>
+                <div class="emaill"><label htmlFor="email"><div class = "t20"><b>EMAIL</b></div></label></div>
 				<input type="email" className="email" id="email" required></input>
 
-                <div class="dobl"><label htmlFor="dob"><b>DATE OF BIRTH</b></label></div
-				><input type="date" className="dob"id="dob" required></input>
+                <div class="dobl"><label htmlFor="dob"><div class = "t20"><b>DATE OF BIRTH</b></div></label></div>
+				<input type="date" className="dob"id="dob" required></input>
 
-				<div class="addressl"><label htmlFor="address"><b>ADDRESS</b></label></div>
+				<div class="addressl"><label htmlFor="address"><div class = "t20"><b>ADDRESS</b></div></label></div>
 				<input type="text" className="address" id="address"></input>
 
-				<div class="contnml"><label htmlFor="contnm"><b>CONTACT NUMBER</b></label></div>
+				<div class="contnml"><label htmlFor="contnm"><div class = "t20"><b>CONTACT NO</b></div></label></div>
 				<input type="number" id="contnm" className="contnm"></input>
 
 				<div class="b20"><button onClick={store}><b>SIGN UP</b></button></div>
+
+				<div class="bhome"> <button onClick={home}><div class = "t10"><b>HOME</b></div></button></div>
 
 				</div>
 

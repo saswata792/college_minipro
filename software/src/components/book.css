@@ -1,37 +1,150 @@
 .header7{
-    position: relative;
-    left: 800px;
+    position: fixed;
+    top:2.5vh;
+    left:40vw;
 
 }
 
 button{
+    background-color: white;
     display: block;
-    background-color: transparent;
     border-radius: 5px;
     text-align: center;
     }
 .t1{
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 table,th,td {
 	border: 1px black solid;
 }
 table{
-    width: 1000px;
+    width: 800px;
     background-color: white;
 }
 
-.one
+.twoone
 {
     position: relative;
-    left: 200px;
-    top:25px;
+    left: 27.5vw;
+    top:20vh;
     color: black;
     font-weight: bold;
 }
 
 .by{
-    position: relative;
-    left: 887.5px;
+    position: fixed;
+    top:12.5vh;
+    left:37.5vw;
 }
+
+.bz{
+    position: fixed;
+    top: 12.5vh;
+    left: 55vw;
+}
+
+@media screen and (max-width: 1080px) {
+    .header7{
+        color: rgb(255, 255, 255);
+        position: fixed;
+        top:2.5vh;
+        left:40vw;
+    
+    }
+    
+    button{
+        display: block;
+        background-color: white;
+        border-radius: 5px;
+        text-align: center;
+        }
+    .t1{
+        color: rgb(0, 0, 0);
+    }
+    
+    table,th,td {
+        border: 1px black solid;
+    }
+    table{
+        width: 600px;
+        background-color: white;
+    }
+    
+    .twoone
+    {
+        position: relative;
+        left: 20vw;
+        top:25vh;
+        color: black;
+        font-weight: bold;
+    }
+    
+    .by{
+        position: fixed;
+        top:12.5vh;
+        left:40vw;
+    }
+    
+    .bz{
+        position: fixed;
+        top: 12.5vh;
+        left: 62.5vw;
+    }
+
+
+}
+
+
+@media screen and (max-width: 600px) {
+    .header7{
+        color: rgb(255, 255, 255);
+        position: fixed;
+        top:2.5vh;
+        left:20vw;
+    
+    }
+    
+    button{
+        display: block;
+        background-color: white;
+        border-radius: 5px;
+        text-align: center;
+        }
+    .t1{
+        color: rgb(0, 0, 0);
+    }
+    
+    table,th,td {
+        border: 1px black solid;
+    }
+    table{
+        width: 600px;
+        background-color: white;
+    }
+    
+    .twoone
+    {
+        position: relative;
+        left: 2.5vw;
+        top:25vh;
+        color: black;
+        font-weight: bold;
+    }
+    
+    .by{
+        position: fixed;
+        top:12.5vh;
+        left:20vw;
+    }
+    
+    .bz{
+        position: fixed;
+        top: 12.5vh;
+        left: 60vw;
+    }
+
+
+}
+
+

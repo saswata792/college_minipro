@@ -19,4 +19,4 @@ class Mainchecker
         )
     }
 }
-export default new Mainchecker(); //class k object kore dewa holo
+export default new Mainchecker(); 

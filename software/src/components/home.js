@@ -10,15 +10,6 @@ function Header()
 {
 	let  history= useHistory();
 	
-	//const [inst,setinst]=React.useState([])
-	// React.useEffect(()=>
-	// 	{	
-	// 		const fetchdata= async()=>{
-	// 			const check=await db.collection('inst').get()
-	// 			setinst(check.docs.map(doc=>doc.data()))
-	// 		}
-	// 		fetchdata()
-	// 	},[]) 
 	
 	function signupclick()
 	{
@@ -31,7 +22,6 @@ function Header()
 		
 		const usrnm=document.getElementById("username").value;
 	    const pass=document.getElementById("password").value;
-	    //const usrnm_array=usrnm.split("@");
 		
 		
 		
@@ -91,8 +81,6 @@ function Header()
 		
 		
 		
-		// const check=db.collection('inst').get();
-		
 	}
 	function booked(){
 		history.push("/book");
@@ -105,10 +93,10 @@ function Header()
             </div> 
 
 			<div class="signin">
-				<label htmlFor="username" ><b>USERNAME</b></label>
-				<input type="text" className="username-one" id="username" required></input>
-				<label htmlFor="password"><b>PASSWORD</b></label>
-				<input type="password" className="password-one" id="password" required></input>
+				<label htmlFor="username" ><div class="tnew"><b>USERNAME</b></div></label>
+				<input type="text" className="username-but" id="username" required></input>
+				<label htmlFor="password"><div class="tnew"><b>PASSWORD</b></div></label>
+				<input type="password" className="password-but" id="password" required></input>
 				<div class="b1"><button id="signin" onClick={checkdata}><b>SIGN IN</b></button></div>	
                 <div class="b2"><button  id="signup" onClick={signupclick}><b>SIGN UP</b></button></div>
 			    <div class="b3"><button onClick={booked}><b>BOOKED</b></button></div>
