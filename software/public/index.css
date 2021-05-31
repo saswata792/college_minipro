@@ -14,9 +14,9 @@ body{
         text-align: center;
         color: rgb(0, 0, 0);
         background-color:aliceblue;
-        position:fixed;
+        position:relative;
         top:95vh;
-        left:25vw;
+        left:00vw;
         }
 
 
@@ -35,9 +35,9 @@ body{
             text-align: center;
             color: rgb(0, 0, 0);
             background-color:aliceblue;
-            position:fixed;
-            top:95vh;
-            left:0vw;
+            position:relative;
+            top:90vh;
+            left:00vw;
             }
 
 }
@@ -58,9 +58,9 @@ body{
             text-align: center;
             color: rgb(0, 0, 0);
             background-color:aliceblue;
-            position:fixed;
-            top:92.5vh;
-            left:0vw;
+            position:relative;
+            top:85vh;
+            left:00vw;
             }
 
 }

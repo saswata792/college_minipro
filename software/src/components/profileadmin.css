@@ -51,7 +51,7 @@ button{
       color: black;
       position: fixed;
   top:70vh;
-  left:55vw;
+  left:50vw;
     }
 
     .t100{
@@ -152,7 +152,7 @@ button{
 @media screen and (max-width: 1080px) {
   .head100{
     text-align: center;
-    color:#000000;
+    color:#ffffff;
     position: fixed;
     top:0vh;
     left:35vw;
@@ -202,7 +202,7 @@ button{
       .c3{
         color: black;
         position: fixed;
-    top:65vh;
+    top:70vh;
     left:45vw;
       }
   
@@ -306,8 +306,9 @@ button{
 
 @media screen and (max-width: 600px) {
   .head100{
+    font-size: 12.5px;
     text-align: center;
-    color:#000000;
+    color:#ffffff;
     position: fixed;
     top:0vh;
     left:25vw;
@@ -323,20 +324,20 @@ button{
   
       #logout2{
         position: fixed;
-    top:50vh;
+    top:55vh;
     left:75vw;
       }
     
       #critical{
         position: fixed;
-    top:50vh;
-    left:10vw;
+    top:55vh;
+    left:05vw;
       }
     
       #change{
         position: fixed;
-    top:50vh;
-    left:35vw;
+    top:55vh;
+    left:30vw;
       }
   
       .c1{
@@ -350,14 +351,14 @@ button{
       .c2{
         color: black;
         position: fixed;
-    top:65vh;
+    top:70vh;
     left:35vw;
       }
     
       .c3{
         color: black;
         position: fixed;
-    top:75vh;
+    top:80vh;
     left:45vw;
       }
   
@@ -396,7 +397,7 @@ button{
    .email-one{
     color: rgb(255, 255, 255);
     position: fixed;
-    top:25vh;
+    top:26vh;
     left:15vw;
    }   
     
@@ -405,7 +406,7 @@ button{
     background-color: aliceblue;
     font-weight: bold;
     position: fixed;
-    top:25vh;
+    top:26vh;
     left:45vw;
    }    
   

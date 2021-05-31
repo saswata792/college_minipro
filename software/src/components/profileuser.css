@@ -301,6 +301,7 @@ button{
 
 @media screen and (max-width: 600px) {
   .head200{
+    font-size: 15px;
     text-align: center;
     color:#ffffff;
     position: fixed;
@@ -318,20 +319,20 @@ button{
   
       #logout3{
         position: fixed;
-    top:50vh;
+    top:55vh;
     left:75vw;
       }
     
       #measure{
         position: fixed;
-    top:50vh;
-    left:10vw;
+    top:55vh;
+    left:05vw;
       }
     
       #change2{
         position: fixed;
-    top:50vh;
-    left:35vw;
+    top:55vh;
+    left:30vw;
       }
   
       .c1{

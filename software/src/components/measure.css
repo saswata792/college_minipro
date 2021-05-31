@@ -59,11 +59,12 @@ th,td {
 
 @media screen and (max-width: 1080px) {
     .header3{
+        font-size: 12.5px;
         text-align: center;
         color: rgb(255, 255, 255);
         position: absolute;
         top:2.5vh;
-        left:22.5vw;
+        left:25vw;
     }
     
     button{
@@ -87,7 +88,7 @@ th,td {
     
     .b61{
         position: absolute;
-        top: 15vh;
+        top: 20vh;
         left:45vw;
     }
     .t3{
@@ -108,7 +109,7 @@ th,td {
     .newtwo{
         position: relative;
         left:5vw;
-        top:-30vh;
+        top:-10vh;
         font-weight: bold;
         color: black;
     }
@@ -117,6 +118,7 @@ th,td {
 
 @media screen and (max-width: 600px) {
     .header3{
+        font-size: 12.5px;
         color: rgb(255, 255, 255);
         text-align: center;
         position: absolute;
@@ -145,7 +147,7 @@ th,td {
     
     .b61{
         position: absolute;
-        top: 15vh;
+        top: 20vh;
         left:45vw;
     }
     .t3{
@@ -165,8 +167,8 @@ th,td {
     
     .newtwo{
         position: relative;
-        left:10vw;
-        top:-30vh;
+        left:2.5vw;
+        top:-10vh;
         font-weight: bold;
         color: black;
     }

@@ -94,19 +94,19 @@ color: #000000;
   .b1{
   position: fixed;
   left: 32.5vw;
-  top:60vh;
+  top:65vh;
   }
   
   .b2{
   position:fixed;
   left:45vw;
-  top:60vh;
+  top:65vh;
   }
   
   .b3{
   position: fixed;
   left: 57.5vw;
-  top:60vh;
+  top:65vh;
   }
   
   .username-but{
@@ -152,9 +152,9 @@ color: #000000;
   .header{
     text-align: center;
     position:fixed;
-    top:25vh;
+    top:15vh;
     left:10vw;
-    font-size: 20px;
+    font-size: 15px;
     color: #ffffff;
   }
   
@@ -211,8 +211,8 @@ color: #000000;
   .signin{
   text-align: center;
   position:fixed;
-  top:45vh;
-  left:35vw;
+  top:37.5vh;
+  left:30vw;
   font-size: 20px;
   color: #000000;
   }

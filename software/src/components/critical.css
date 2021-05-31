@@ -75,19 +75,19 @@ th,td {
     
     #logout{
         position: absolute;
-        top: 15vh;
+        top: 20vh;
         left:67.5vw;
         }
     
     #profile{
         position: absolute;
-        top: 15vh;
+        top: 20vh;
         left:22.5vw;
     }
     
     .b6{
         position: absolute;
-        top: 15vh;
+        top: 20vh;
         left:45vw;
     }
     .t1{
@@ -122,6 +122,7 @@ th,td {
         position: absolute;
         top:2.5vh;
         left:2.5vw;
+        font-size: 12.5px;
     }
     
     button{
@@ -133,19 +134,19 @@ th,td {
     
     #logout{
         position: absolute;
-        top: 15vh;
+        top: 20vh;
         left:80vw;
         }
     
         #profile{
         position: absolute;
-        top: 15vh;
+        top: 20vh;
         left:10vw;
     }
     
     .b6{
         position: absolute;
-        top: 15vh;
+        top: 20vh;
         left:45vw;
     }
     .t1{
