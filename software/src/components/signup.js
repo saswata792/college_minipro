@@ -2,7 +2,6 @@ import React from "react";
 import './signup.css';
 import { useHistory } from "react-router-dom";
 import firebase from "./fire.js";
-
 import Mainchecker from "./mainchecker.js";
 var db=firebase.database();
 function Signup()
@@ -67,7 +66,6 @@ function Signup()
 							
 				}	
 			}).catch((error)=>{
-				console.log(error);
 			})
 		
 		}
@@ -118,7 +116,6 @@ function Signup()
 							
 				}	
 			}).catch((error)=>{
-				console.log(error);
 			})
 		
 		}
@@ -139,7 +136,7 @@ function Signup()
 				<div class name="main">
 
 				<div class="usernamel"><label htmlFor="username" ><div class = "t20"><b>USERNAME</b></div></label></div>
-				<input type="text" className="username" id="username" required></input>
+				<input type="text" placeholder="username@admin/user" className="username" id="username" required></input>
 
 				<div class="passwordl"><label htmlFor="password"><div class = "t20"><b>PASSWORD</b></div></label></div>
 				<input type="password" className="password" id="password" required></input>

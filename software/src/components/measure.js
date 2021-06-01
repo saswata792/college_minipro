@@ -13,7 +13,6 @@ import Mainchecker from "./mainchecker.js";
   function logout()
   {
       history.push("/");
-      console.log("hello");
 
   }
   function measured(){

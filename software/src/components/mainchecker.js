@@ -10,7 +10,6 @@ class Mainchecker
     {
         
         this.profile=check;
-        console.log(this.profile);
     }
     getProfile()
     {

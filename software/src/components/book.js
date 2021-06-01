@@ -17,19 +17,13 @@ function Book(){
         Object.keys(snapshot.val()).forEach(data=>{
             admit.push(snapshot.val()[data])
         })
-        // let content=``;
-        console.log("Admit")
-        console.log(admit)
         admit.forEach((index)=>
         {
-          console.log(index)
             Object.keys(index).forEach((dat)=>{
               cover.push(index[dat])
             })
             
         })
-        
-      console.log(cover)
 
       let content=
       `

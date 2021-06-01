@@ -34,8 +34,6 @@ var cb=firebase.database();
   }
   function Book(critical)
   {
-        console.log(critical)
-        console.log(critical["spotwo"])
         var book_time=fetchTime();
         db.ref("user/").child(critical["username"]).get().then((snapshot)=>
         {

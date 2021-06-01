@@ -20,7 +20,7 @@ body{
         }
 
 
-        /* Use a media query to add a breakpoint at 1080px: */
+        
 @media screen and (max-width: 1080px) {
     body{
         background-image: url(./new.jpg);
@@ -43,7 +43,6 @@ body{
 }
 
 
-/* Use a media query to add a breakpoint at 600px: */
 @media screen and (max-width: 600px) {
     body{
         background-image: url(./new.jpg);
