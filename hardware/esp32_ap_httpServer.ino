@@ -2,6 +2,8 @@
 #include<EEPROM.h>
 #include <WebServer.h>
 #include<FirebaseESP32.h>
+#include "MAX30100_PulseOximeter.h"
+#include "time.h"
 #include "./webpaged.h";
 #include "./sewebpaged.h";
 #include "./register.h";
@@ -9,40 +11,34 @@
 #include "./profile.h";
 #include <rom/rtc.h>
 /* Put your SSID & Password */
-const char* ssid = "ESP32";  // Enter SSID here
+const char* ssid = "ESP32_21221245";  // Enter SSID here
 const char* password = "12345678";  //Enter Password here
 const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 19800;
 const int   daylightOffset_sec = 0;
+//PulseOximeter pox;
 
-//#include "DHT.h"
-#define DHTPIN 2    
-#define DHTTYPE DHT11
-#define FIREBASE_HOST "esp32-82eba-default-rtdb.firebaseio.com"                     //Your Firebase Project URL goes here without "http:" , "\" and "/"
+#define FIREBASE_HOST "https://esp32-82eba-default-rtdb.firebaseio.com/"                     //Your Firebase Project URL goes here without "http:" , "\" and "/"
 #define FIREBASE_AUTH "VCyvBPExh4qBOfKIefGzCEg8UtTzYlYW5UQMFnAW" //Your Firebase Database Secret goes here
 #include "TimeLib.h"
 
 FirebaseData fireStatus;
-String rusername;
-String rpassword;
-String uusername;
-String upassword;
-//extern "C" {
-////#include <user_interface.h>
-//}
+
 typedef struct
 {
-  char* rusername;
-  char* rpassword;
+  String rpassword;
+  String rusername;
+  
 }route;
 typedef struct
 {
-  char* uusername;
-  char* upassword;
+  String uusername;
+  String upassword;
 }user;
 
 user usdetails;
 route rtdetails;
+
 /* Put IP Address details */
 IPAddress local_ip(192,168,1,1);
 IPAddress gateway(192,168,1,1);
@@ -50,101 +46,136 @@ IPAddress subnet(255,255,255,0);
 
 WebServer server(80);
 
-//FirebaseData fireStatus;
+//float BPM, SpO2;
 void setup()
 {
   Serial.begin(74880);
-  route users;
-  Serial.println("\nRESET REASON:");
+  Serial.print("\nRESET REASON: ");
   Serial.println(rtc_get_reset_reason(0));
+    route users;
+    
   if(rtc_get_reset_reason(0)==1)
   {
     WiFi.softAP(ssid, password);
     WiFi.softAPConfig(local_ip, gateway, subnet);
     delay(100);
-    server.begin();
+    Serial.println("Reset DONE");
     server.on("/",change);
     server.on("/changepro",readpro);
     server.on("/changerout",readrout);
     //server.on("/router",readUserData);
     server.on("/profileup",successfulprofile);
     server.on("/routerup",successfulrouter);
+    server.begin();
   }
   else{
+    route users;
     EEPROM.begin(512);
-    EEPROM.get(100,users);
-    if(strcmp(users.rusername,"")==0 || strcmp(users.rpassword,"")==0){
+    EEPROM.get(0,users);
+    EEPROM.end();
+    Serial.print("Username: ");
+    Serial.println(users.rusername);
+    Serial.print("Password: ");
+    Serial.println(users.rpassword);
+    char* user = (char*)users.rusername.c_str();
+    char* password = (char*)users.rpassword.c_str();
+    if(strcmp(user,"")==0 || strcmp(password,"")==0){
       WiFi.softAP(ssid, password);
       WiFi.softAPConfig(local_ip, gateway, subnet);
       delay(100);
       server.begin();
       server.on("/",webpage);
       server.on("/router",readData);
-      EEPROM.end();
+      
     }
     else
     {
-        station();
-        //configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+        station(user, password);
+        configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+//        firebase();
+        
     }
   }
+//  if (!pox.begin())
+//    {
+//         Serial.println("FAILED");
+//         for(;;);
+//    }
+//    else
+//    {
+//         Serial.println("SUCCESS");
+//         //pox.setOnBeatDetectedCallback(onBeatDetected);
+//    }
 }
-//String printLocalTime()
-//{
-//    struct tm timeinfo;
-//    
-//    Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
-//    return timeinfo;
-//}
-void station()
+String printLocalTime()
 {
-  route users;
-  EEPROM.begin(512);
-  EEPROM.get(100,users);
-  WiFi.begin(users.rusername, users.rpassword);
+    struct tm timeinfo;
+//    if(!getLocalTime(&timeinfo)){
+//    Serial.println("Failed to obtain time");
+//    return;
+//  }
+    String day = String(timeinfo.tm_mday); 
+    String month =String( timeinfo.tm_mon + 1); 
+    String year = String(timeinfo.tm_year +1900);
+    Serial.println(day+':'+month+':'+year);
+    return (day+':'+month+':'+year);
+   
+}
+void station(char* user, char* password)
+{
+  WiFi.begin(user, password);
   while (WiFi.status() != WL_CONNECTED) {
       delay(500);
       Serial.print(".");
   }
   Serial.println(" CONNECTED");
-  EEPROM.end();
 }    
  
-void firebase()
-{
-  user users;
+//void firebase()
+//{
 //  String times=printLocalTime();
-//  float h = dht.readHumidity();
-//  float t = dht.readTemperature();
-  EEPROM.begin(512);
-  Firebase.begin(FIREBASE_HOST,FIREBASE_AUTH);
-  EEPROM.get(100,users);
-  String usrnm=users.uusername;
-  String pass=users.upassword;
-  Firebase.setFloat(fireStatus,"user/usrnm/times/humidity",0.09);
-  Firebase.setFloat(fireStatus,"user/usrnm/times/temperature",12.4);
-  EEPROM.end();
-}
+//  user users;
+//  pox.update();
+//  BPM = pox.getHeartRate();
+//  SpO2 = pox.getSpO2();
+//  Serial.print("BPM:");
+//  Serial.println(BPM);
+//  Serial.print("SpO2:");
+//  Serial.println(SpO2);
+//  EEPROM.begin(512);
+//  Firebase.begin(FIREBASE_HOST,FIREBASE_AUTH);
+//  EEPROM.get(100,users);
+//  String usrnm=users.uusername;
+//  String pass=users.upassword;
+//  Firebase.setFloat(fireStatus,"user/usrnm/times/humidity",BPM);
+//  Firebase.setFloat(fireStatus,"user/usrnm/times/temperature",BPM);
+//  EEPROM.end();
+//}
 
 bool successfulrouter()
 {
   route rt;
+  route r;
+  String user, password;
   EEPROM.begin(512);
   Serial.print("SSID: ");
-  String st =server.arg("rtusername");
-  rtdetails.rusername=(char*)&st;
-  Serial.println(server.arg("rtusername"));
-  Serial.print("Password:");
-  st=server.arg("rtpassword");
-  rtdetails.rpassword=(char*)&st;
-  Serial.println(server.arg("rtpassword"));
-  server.send(200,"text/html",registered);
-  EEPROM.put(0,rtdetails);
-  EEPROM.get(0,rt);
+  user=server.arg("rtusername");
+  rt.rusername=user;//(char*)(user.c_str());
   Serial.println(rt.rusername);
+  password=server.arg("rtpassword");
+  Serial.print("Password: ");
+  rt.rpassword=password;//(char*)(password.c_str());
   Serial.println(rt.rpassword);
-  server.send(200,"text/html",registered);
+  EEPROM.put(0,rt);
+  EEPROM.get(0,r);
   EEPROM.end();
+  Serial.print("User: ");
+  Serial.println(r.rusername);
+  Serial.print("Password: ");
+  Serial.println(r.rpassword);
+  server.send(200,"text/html",registered);
+  delay(3000);
+  ESP.restart();
   return true;
 }
 bool successfulprofile()
@@ -153,13 +184,13 @@ bool successfulprofile()
   user us;
   EEPROM.begin(512);
   Serial.print("Username: ");
-  String st=server.arg("rtusername");
-  usdetails.uusername=(char*)&st;
+  String st=server.arg("username");
+  usdetails.uusername=st;
   Serial.println(server.arg("username"));
 
   Serial.print("Password:");
-  st=server.arg("rtusername");
-  usdetails.upassword=(char*)&st;
+  String stp=server.arg("password");
+  usdetails.upassword=stp;
   Serial.println(server.arg("password"));
   EEPROM.put(100,usdetails);
   EEPROM.get(100,us);
@@ -226,10 +257,10 @@ bool readData()
  
 }
 void loop() {
- server.handleClient();
-  //printLocalTime();
+  server.handleClient();
  
-
+  
+  delay(1000);
  
  
 }

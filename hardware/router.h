@@ -1,30 +1,29 @@
-const char profile[]=
+const char router[]=
 R"=====(
     <!Doctype html>
     <html>
     <head>
         <style>
-       
-            .username-two{
+            .rtusername-two{
                 text-align:center;
                 position:relative;
-                top:70%;
+                top:50%;
                 left:50%;
                 display:block;
                 
             }
-            .password-two{
+            .rtpassword-two{
                 text-align:center;
                 position:relative;
-                top:80%;
+                top:60%;
                 left:50%;
                 display:block;
                 
             }
-           
-            img{
-                background-size:cover;
+            .rtpassword-two1{
+              display:none;
             }
+      
         </style>
     </head>
     <body>
@@ -32,12 +31,11 @@ R"=====(
  
  
     <h1>Router Signin</h1>
-      <form action="/profileup" method="post">
-        
-        <label for='username'>User's Username</label>
-        <input id='username' class="username-two" name="username"></input>
-        <label for='password'>User's Password</label>
-        <input id='password' class="password-two" name="password"></input>
+      <form action="/routerup" method="post">
+        <label for="rtusername">Router Username</label>
+        <input id="rtusername" class="rtusername-two" name="rtusername"></input>
+        <label for="rtpassword">Router Password</label>
+        <input id="rtpassword" type="text" class="rtpassword-two" name="rtpassword"></input>
         <button>Submit</button>
 
       </form>

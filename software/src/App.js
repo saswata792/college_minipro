@@ -9,7 +9,7 @@ import Critical from './components/critical.js';
 import Book from './components/book.js';
 import React from "react"; 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   
